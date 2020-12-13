@@ -18,28 +18,29 @@ class FoodProgressBar: UIView {
         return lineView
     }()
     
-    private let firstButton: ProgressBarButton = {
-        let button = ProgressBarButton(withImage: nil)
-        button.setDimensions(height: 44, width: 44)
-        return button
+    private let firstBubble: ProgressBarBubble = {
+        let bubble = ProgressBarBubble(withImage: nil)
+        bubble.setDimensions(height: 44, width: 44)
+        return bubble
     }()
     
-    private let secondButton: ProgressBarButton = {
-        let button = ProgressBarButton(withImage: nil)
-        button.setDimensions(height: 44, width: 44)
-        return button
+    private let secondBubble: ProgressBarBubble = {
+        let bubble = ProgressBarBubble(withImage: nil)
+        bubble.setDimensions(height: 44, width: 44)
+        return bubble
     }()
     
-    private let thirdButton: ProgressBarButton = {
-        let button = ProgressBarButton(withImage: nil)
-        button.setDimensions(height: 44, width: 44)
-        return button
+    private let thirdBubble: ProgressBarBubble = {
+        let bubble = ProgressBarBubble(withImage: nil)
+        bubble.setDimensions(height: 44, width: 44)
+        return bubble
     }()
     
-    private let lastButton: ProgressBarButton = {
-        let button = ProgressBarButton(withImage: nil)
-        button.setDimensions(height: 44, width: 44)
-        return button
+    private let lastBubble: ProgressBarBubble = {
+        let bubble = ProgressBarBubble(withImage: UIImage(systemName: "bell"))
+        bubble.tintColor = .black
+        bubble.setDimensions(height: 44, width: 44)
+        return bubble
     }()
     
     //MARK: - Lifecycle
@@ -63,26 +64,31 @@ class FoodProgressBar: UIView {
     //MARK: - Helpers
     
     func configureUI() {
-        backgroundColor = .red
+        backgroundColor = #colorLiteral(red: 0.9335944057, green: 0.6621651053, blue: 0.7384092212, alpha: 1)
+        
         
         addSubview(line)
-        line.centerY(inView: self)
-        line.anchor(leading: leadingAnchor, trailing: trailingAnchor)
+        line.anchor(top: self.topAnchor,
+                    leading: self.leadingAnchor,
+                    trailing: self.trailingAnchor,
+                    paddingTop: 47,
+                    paddingLeading: 24,
+                    paddingTrailing: 24)
         
-        addSubview(firstButton)
-        firstButton.centerY(inView: self)
-        firstButton.anchor(leading: line.leadingAnchor)
+        addSubview(firstBubble)
+        firstBubble.centerY(inView: line)
+        firstBubble.anchor(leading: line.leadingAnchor)
         
-        addSubview(secondButton)
-        secondButton.centerY(inView: self)
-        secondButton.anchor(leading: firstButton.trailingAnchor, paddingLeading: 58)
+        addSubview(secondBubble)
+        secondBubble.centerY(inView: line)
+        secondBubble.anchor(leading: firstBubble.trailingAnchor, paddingLeading: 58)
         
-        addSubview(thirdButton)
-        thirdButton.centerY(inView: self)
-        thirdButton.anchor(leading: secondButton.trailingAnchor, paddingLeading: 51)
+        addSubview(thirdBubble)
+        thirdBubble.centerY(inView: line)
+        thirdBubble.anchor(leading: secondBubble.trailingAnchor, paddingLeading: 51)
         
-        addSubview(lastButton)
-        lastButton.centerY(inView: self)
-        lastButton.anchor(trailing: line.trailingAnchor)
+        addSubview(lastBubble)
+        lastBubble.centerY(inView: line)
+        lastBubble.anchor(trailing: line.trailingAnchor)
     }
 }

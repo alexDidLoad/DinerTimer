@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ProgressBarButton: UIButton {
+class ProgressBarBubble: UIView {
     
     //MARK: - Properties
     
-    private let buttonImageView: UIImageView = {
+    private let bubbleImageView: UIImageView = {
         let iv = UIImageView()
         iv.setDimensions(height: 22, width: 22)
         return iv
@@ -39,10 +39,10 @@ class ProgressBarButton: UIButton {
         layer.cornerRadius = 22
         layer.masksToBounds = true
         
-        buttonImageView.image = image
-        addSubview(buttonImageView)
-        buttonImageView.centerY(inView: self)
-        buttonImageView.centerX(inView: self)
+        bubbleImageView.image = image
+        addSubview(bubbleImageView)
+        bubbleImageView.centerY(inView: self)
+        bubbleImageView.centerX(inView: self)
     }
     
 }

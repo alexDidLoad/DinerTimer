@@ -11,11 +11,14 @@ class MainViewController: UIViewController {
     
     //MARK: - UIComponents
     
-    private let bottomView: UIView = {
-        let bv = UIView()
-        bv.setHeight(height: 265)
-        bv.backgroundColor = #colorLiteral(red: 0.9335944057, green: 0.6621651053, blue: 0.7384092212, alpha: 1)
-        return bv
+    private let optionsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Choose your breakfast item"
+        label.textAlignment = .center
+        label.font = UIFont(name: "SFProText-Regular", size: 18)
+        label.textColor = #colorLiteral(red: 0.1545568705, green: 0.117007874, blue: 0.04884755611, alpha: 1)
+        label.setHeight(height: 21)
+        return label
     }()
     
     //MARK: - Properties
@@ -39,7 +42,7 @@ class MainViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        configureNavBar(withTitle: "Diner Timer", prefersLargeTitle: true)
+        configureNavBar(withTitle: "Diner Timer", prefersLargeTitle: false)
         
         let backgroundImageView = UIImageView()
         backgroundImageView.setDimensions(height: view.frame.height, width: view.frame.width)
@@ -47,14 +50,26 @@ class MainViewController: UIViewController {
         view.addSubview(backgroundImageView)
         backgroundImageView.centerX(inView: view)
         backgroundImageView.centerY(inView: view)
-       
-        view.addSubview(bottomView)
-        bottomView.anchor(leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
         let progressBar = FoodProgressBar()
-        bottomView.addSubview(progressBar)
-        progressBar.anchor(top: bottomView.topAnchor, leading: bottomView.leadingAnchor, trailing: bottomView.trailingAnchor, paddingTop: 45, paddingLeading: 24, paddingTrailing: 24)
+        progressBar.setHeight(height: 265)
+        view.addSubview(progressBar)
+        progressBar.centerX(inView: view)
+        progressBar.anchor(leading: view.leadingAnchor,
+                           bottom: view.bottomAnchor,
+                           trailing: view.trailingAnchor)
         
+        let foodItemView = FoodItemView()
+        view.addSubview(foodItemView)
+        foodItemView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            leading: view.leadingAnchor,
+                            bottom: progressBar.topAnchor,
+                            trailing: view.trailingAnchor)
+        
+        view.addSubview(optionsLabel)
+        optionsLabel.centerY(inView: progressBar, constant: -15)
+        optionsLabel.anchor(leading: progressBar.leadingAnchor,
+                            trailing: progressBar.trailingAnchor)
         
     }
     

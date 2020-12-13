@@ -103,7 +103,7 @@ extension UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : #colorLiteral(red: 0.4614635429, green: 0.2202478027, blue: 0.2029526682, alpha: 1)]
         
         //overrides status bar to be white (battery | wifi symbol | time)
-        navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
+        navigationController?.navigationBar.overrideUserInterfaceStyle = .light
     }
     
     func drawCheckerBoard(imageView: UIImageView) {
