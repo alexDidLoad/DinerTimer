@@ -32,12 +32,11 @@ class ProgressBarBubble: UIView {
     //MARK: - Helpers
     
     func configureUI(image: UIImage?) {
-        backgroundColor = #colorLiteral(red: 0.9420526624, green: 0.7777841687, blue: 0.4800494313, alpha: 1)
-        
-        layer.borderWidth = 2
-        layer.borderColor = #colorLiteral(red: 0.2684969306, green: 0.2308473587, blue: 0.1689801216, alpha: 1)
-        layer.cornerRadius = 22
-        layer.masksToBounds = true
+        self.backgroundColor = #colorLiteral(red: 0.9420526624, green: 0.7777841687, blue: 0.4800494313, alpha: 1)
+        self.layer.borderWidth = 2
+        self.layer.borderColor = #colorLiteral(red: 0.2684969306, green: 0.2308473587, blue: 0.1689801216, alpha: 1)
+        self.layer.cornerRadius = 22
+        self.layer.masksToBounds = true
         
         bubbleImageView.image = image
         addSubview(bubbleImageView)

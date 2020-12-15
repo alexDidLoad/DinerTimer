@@ -36,6 +36,9 @@
 		11A4BE2F25853CAA00C09D7A /* FoodProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */; };
 		11A4BE32258547AC00C09D7A /* ProgressBarBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */; };
 		11A4BE3A2586BAAF00C09D7A /* FoodItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE392586BAAF00C09D7A /* FoodItemView.swift */; };
+		11A4BE602589507600C09D7A /* DescriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE5F2589507600C09D7A /* DescriptionButton.swift */; };
+		11A4BE6525895C8600C09D7A /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE6425895C8600C09D7A /* PaddingLabel.swift */; };
+		11A4BE6925895FD400C09D7A /* QuickTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE6825895FD400C09D7A /* QuickTipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +73,9 @@
 		11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodProgressBar.swift; sourceTree = "<group>"; };
 		11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarBubble.swift; sourceTree = "<group>"; };
 		11A4BE392586BAAF00C09D7A /* FoodItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemView.swift; sourceTree = "<group>"; };
+		11A4BE5F2589507600C09D7A /* DescriptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionButton.swift; sourceTree = "<group>"; };
+		11A4BE6425895C8600C09D7A /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		11A4BE6825895FD400C09D7A /* QuickTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,8 +184,11 @@
 		11A4BE372586BA7400C09D7A /* CustomUIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				11A4BE6425895C8600C09D7A /* PaddingLabel.swift */,
 				11A4BE042583E36700C09D7A /* CustomItemButton.swift */,
+				11A4BE5F2589507600C09D7A /* DescriptionButton.swift */,
 				11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */,
+				11A4BE6825895FD400C09D7A /* QuickTipView.swift */,
 			);
 			path = CustomUIComponents;
 			sourceTree = "<group>";
@@ -272,11 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A4BE6925895FD400C09D7A /* QuickTipView.swift in Sources */,
 				11A4BE32258547AC00C09D7A /* ProgressBarBubble.swift in Sources */,
 				11A4BE2F25853CAA00C09D7A /* FoodProgressBar.swift in Sources */,
 				11A4BE3A2586BAAF00C09D7A /* FoodItemView.swift in Sources */,
 				11A4BDEB2583E08C00C09D7A /* MainViewController.swift in Sources */,
 				11A4BDE72583E08C00C09D7A /* AppDelegate.swift in Sources */,
+				11A4BE602589507600C09D7A /* DescriptionButton.swift in Sources */,
+				11A4BE6525895C8600C09D7A /* PaddingLabel.swift in Sources */,
 				11A4BDE92583E08C00C09D7A /* SceneDelegate.swift in Sources */,
 				11A4BE012583E24800C09D7A /* Extensions.swift in Sources */,
 				11A4BE052583E36700C09D7A /* CustomItemButton.swift in Sources */,

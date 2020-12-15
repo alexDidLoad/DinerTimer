@@ -52,14 +52,13 @@ class CustomItemButton: UIButton {
         
         self.setDimensions(height: 160, width: 160)
         self.layer.cornerRadius = 20
-        backgroundColor = #colorLiteral(red: 0.9380293489, green: 0.7453880906, blue: 0.4123244882, alpha: 1)
-        
-        layer.shadowColor = UIColor(red: 0.808, green: 0.67, blue: 0.424, alpha: 1).cgColor
-        layer.shadowOpacity = 1
-        layer.shadowRadius = 0
-        layer.shadowOffset = CGSize(width: 4, height: 4)
-        layer.bounds = self.bounds
-        layer.position = self.center
+        self.backgroundColor = #colorLiteral(red: 0.9380293489, green: 0.7453880906, blue: 0.4123244882, alpha: 1)
+        self.layer.shadowColor = UIColor(red: 0.808, green: 0.67, blue: 0.424, alpha: 1).cgColor
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 0
+        self.layer.shadowOffset = CGSize(width: 4, height: 4)
+        self.layer.bounds = self.bounds
+        self.layer.position = self.center
         
         addSubview(labelView)
         labelView.anchor(leading: leadingAnchor,

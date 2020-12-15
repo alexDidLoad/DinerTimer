@@ -51,6 +51,7 @@ class MainViewController: UIViewController {
         backgroundImageView.centerX(inView: view)
         backgroundImageView.centerY(inView: view)
         
+        //bottomView
         let progressBar = FoodProgressBar()
         progressBar.setHeight(height: 265)
         view.addSubview(progressBar)
@@ -59,17 +60,22 @@ class MainViewController: UIViewController {
                            bottom: view.bottomAnchor,
                            trailing: view.trailingAnchor)
         
-        let foodItemView = FoodItemView()
-        view.addSubview(foodItemView)
-        foodItemView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                            leading: view.leadingAnchor,
-                            bottom: progressBar.topAnchor,
-                            trailing: view.trailingAnchor)
-        
         view.addSubview(optionsLabel)
         optionsLabel.centerY(inView: progressBar, constant: -15)
         optionsLabel.anchor(leading: progressBar.leadingAnchor,
                             trailing: progressBar.trailingAnchor)
+        
+        //this needs to be changed
+//        let foodItemView = FoodItemView()
+//        view.addSubview(foodItemView)
+//        foodItemView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+//                            leading: view.leadingAnchor,
+//                            bottom: progressBar.topAnchor,
+//                            trailing: view.trailingAnchor)
+//        let descriptionButton = DescriptionButton(name: "Over easy", description: "Whites are cooked through with runny yolk", estimatedTime: "3 min")
+//        view.addSubview(descriptionButton)
+//        descriptionButton.centerX(inView: view)
+//        descriptionButton.centerY(inView: view)
         
     }
     
