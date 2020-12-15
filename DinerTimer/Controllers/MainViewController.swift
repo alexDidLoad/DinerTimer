@@ -72,10 +72,16 @@ class MainViewController: UIViewController {
 //                            leading: view.leadingAnchor,
 //                            bottom: progressBar.topAnchor,
 //                            trailing: view.trailingAnchor)
-//        let descriptionButton = DescriptionButton(name: "Over easy", description: "Whites are cooked through with runny yolk", estimatedTime: "3 min")
-//        view.addSubview(descriptionButton)
-//        descriptionButton.centerX(inView: view)
-//        descriptionButton.centerY(inView: view)
+        let descriptionButton = DescriptionButton(name: "Over easy", description: "Whites are cooked through with runny yolk", estimatedTime: "3 min")
+        view.addSubview(descriptionButton)
+        descriptionButton.centerX(inView: view)
+        descriptionButton.centerY(inView: view)
+        
+//        let quicktipView = QuickTipView()
+//        view.addSubview(quicktipView)
+//        quicktipView.centerX(inView: view)
+//        quicktipView.centerY(inView: view)
+//
         
     }
     
