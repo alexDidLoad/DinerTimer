@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     
     //MARK: - Properties
     
-    
+    var complete = "t"
     
     //MARK: - Lifecycle
     
@@ -65,18 +65,19 @@ class MainViewController: UIViewController {
         optionsLabel.anchor(leading: progressBar.leadingAnchor,
                             trailing: progressBar.trailingAnchor)
         
-        //this needs to be changed
-//        let foodItemView = FoodItemView()
-//        view.addSubview(foodItemView)
-//        foodItemView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-//                            leading: view.leadingAnchor,
-//                            bottom: progressBar.topAnchor,
-//                            trailing: view.trailingAnchor)
-        let descriptionButton = DescriptionButton(name: "Over easy", description: "Whites are cooked through with runny yolk", estimatedTime: "3 min")
-        view.addSubview(descriptionButton)
-        descriptionButton.centerX(inView: view)
-        descriptionButton.centerY(inView: view)
+        //this will change
+        let itemSelectionView = ItemSelectionView()
+        view.addSubview(itemSelectionView)
+        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            leading: view.leadingAnchor,
+                            bottom: progressBar.topAnchor,
+                            trailing: view.trailingAnchor)
         
+//        let descriptionButton = DescriptionButton(name: "Over easy", description: "Whites are cooked through with runny yolk", estimatedTime: "3 min")
+//        view.addSubview(descriptionButton)
+//        descriptionButton.centerX(inView: view)
+//        descriptionButton.centerY(inView: view)
+//
 //        let quicktipView = QuickTipView()
 //        view.addSubview(quicktipView)
 //        quicktipView.centerX(inView: view)

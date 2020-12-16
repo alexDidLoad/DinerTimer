@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110E472F258A99BF0025BDA7 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E472E258A99BF0025BDA7 /* TimerViewController.swift */; };
 		11A4BDE72583E08C00C09D7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDE62583E08C00C09D7A /* AppDelegate.swift */; };
 		11A4BDE92583E08C00C09D7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDE82583E08C00C09D7A /* SceneDelegate.swift */; };
 		11A4BDEB2583E08C00C09D7A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDEA2583E08C00C09D7A /* MainViewController.swift */; };
-		11A4BDEE2583E08C00C09D7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11A4BDEC2583E08C00C09D7A /* Main.storyboard */; };
 		11A4BDF02583E09700C09D7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A4BDEF2583E09700C09D7A /* Assets.xcassets */; };
 		11A4BDF32583E09700C09D7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11A4BDF12583E09700C09D7A /* LaunchScreen.storyboard */; };
 		11A4BE012583E24800C09D7A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE002583E24800C09D7A /* Extensions.swift */; };
@@ -35,18 +35,18 @@
 		11A4BE2C2583E8A800C09D7A /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11A4BE112583E7A900C09D7A /* SF-Pro-Text-Light.otf */; };
 		11A4BE2F25853CAA00C09D7A /* FoodProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */; };
 		11A4BE32258547AC00C09D7A /* ProgressBarBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */; };
-		11A4BE3A2586BAAF00C09D7A /* FoodItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE392586BAAF00C09D7A /* FoodItemView.swift */; };
+		11A4BE3A2586BAAF00C09D7A /* ItemSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE392586BAAF00C09D7A /* ItemSelectionView.swift */; };
 		11A4BE602589507600C09D7A /* DescriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE5F2589507600C09D7A /* DescriptionButton.swift */; };
 		11A4BE6525895C8600C09D7A /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE6425895C8600C09D7A /* PaddingLabel.swift */; };
 		11A4BE6925895FD400C09D7A /* QuickTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BE6825895FD400C09D7A /* QuickTipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		110E472E258A99BF0025BDA7 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		11A4BDE32583E08C00C09D7A /* DinerTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinerTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A4BDE62583E08C00C09D7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A4BDE82583E08C00C09D7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		11A4BDEA2583E08C00C09D7A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		11A4BDED2583E08C00C09D7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11A4BDEF2583E09700C09D7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11A4BDF22583E09700C09D7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11A4BDF42583E09700C09D7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		11A4BE192583E7A900C09D7A /* SF-Pro-Text-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-MediumItalic.otf"; sourceTree = "<group>"; };
 		11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodProgressBar.swift; sourceTree = "<group>"; };
 		11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarBubble.swift; sourceTree = "<group>"; };
-		11A4BE392586BAAF00C09D7A /* FoodItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemView.swift; sourceTree = "<group>"; };
+		11A4BE392586BAAF00C09D7A /* ItemSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSelectionView.swift; sourceTree = "<group>"; };
 		11A4BE5F2589507600C09D7A /* DescriptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionButton.swift; sourceTree = "<group>"; };
 		11A4BE6425895C8600C09D7A /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		11A4BE6825895FD400C09D7A /* QuickTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTipView.swift; sourceTree = "<group>"; };
@@ -89,6 +89,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		110E4736258AA05B0025BDA7 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				11A4BE392586BAAF00C09D7A /* ItemSelectionView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		110E4738258AA0790025BDA7 /* TimerView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TimerView;
+			sourceTree = "<group>";
+		};
 		11A4BDDA2583E08C00C09D7A = {
 			isa = PBXGroup;
 			children = (
@@ -115,7 +130,6 @@
 				11A4BDFE2583E1C900C09D7A /* View */,
 				11A4BDFC2583E1AD00C09D7A /* Controllers */,
 				11A4BDFF2583E21700C09D7A /* Util */,
-				11A4BDEC2583E08C00C09D7A /* Main.storyboard */,
 				11A4BDEF2583E09700C09D7A /* Assets.xcassets */,
 				11A4BDF12583E09700C09D7A /* LaunchScreen.storyboard */,
 				11A4BDF42583E09700C09D7A /* Info.plist */,
@@ -127,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				11A4BDEA2583E08C00C09D7A /* MainViewController.swift */,
+				110E472E258A99BF0025BDA7 /* TimerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -142,8 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				11A4BE372586BA7400C09D7A /* CustomUIComponents */,
-				11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */,
-				11A4BE392586BAAF00C09D7A /* FoodItemView.swift */,
+				110E4736258AA05B0025BDA7 /* MainView */,
+				110E4738258AA0790025BDA7 /* TimerView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,6 +204,7 @@
 				11A4BE5F2589507600C09D7A /* DescriptionButton.swift */,
 				11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */,
 				11A4BE6825895FD400C09D7A /* QuickTipView.swift */,
+				11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */,
 			);
 			path = CustomUIComponents;
 			sourceTree = "<group>";
@@ -268,7 +284,6 @@
 				11A4BDF02583E09700C09D7A /* Assets.xcassets in Resources */,
 				11A4BE212583E8A800C09D7A /* SF-Pro-Text-Medium.otf in Resources */,
 				11A4BE262583E8A800C09D7A /* SF-Pro-Text-BoldItalic.otf in Resources */,
-				11A4BDEE2583E08C00C09D7A /* Main.storyboard in Resources */,
 				11A4BE2A2583E8A800C09D7A /* SF-Pro-Text-Ultralight.otf in Resources */,
 				11A4BE2B2583E8A800C09D7A /* SF-Pro-Text-Black.otf in Resources */,
 			);
@@ -284,12 +299,13 @@
 				11A4BE6925895FD400C09D7A /* QuickTipView.swift in Sources */,
 				11A4BE32258547AC00C09D7A /* ProgressBarBubble.swift in Sources */,
 				11A4BE2F25853CAA00C09D7A /* FoodProgressBar.swift in Sources */,
-				11A4BE3A2586BAAF00C09D7A /* FoodItemView.swift in Sources */,
+				11A4BE3A2586BAAF00C09D7A /* ItemSelectionView.swift in Sources */,
 				11A4BDEB2583E08C00C09D7A /* MainViewController.swift in Sources */,
 				11A4BDE72583E08C00C09D7A /* AppDelegate.swift in Sources */,
 				11A4BE602589507600C09D7A /* DescriptionButton.swift in Sources */,
 				11A4BE6525895C8600C09D7A /* PaddingLabel.swift in Sources */,
 				11A4BDE92583E08C00C09D7A /* SceneDelegate.swift in Sources */,
+				110E472F258A99BF0025BDA7 /* TimerViewController.swift in Sources */,
 				11A4BE012583E24800C09D7A /* Extensions.swift in Sources */,
 				11A4BE052583E36700C09D7A /* CustomItemButton.swift in Sources */,
 			);
@@ -298,14 +314,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		11A4BDEC2583E08C00C09D7A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				11A4BDED2583E08C00C09D7A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		11A4BDF12583E09700C09D7A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

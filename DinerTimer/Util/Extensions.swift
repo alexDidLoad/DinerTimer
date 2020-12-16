@@ -80,6 +80,39 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: width).isActive = true
     }
+    
+    func fade(out view: UIView, completion: (() -> Void)?) {
+        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
+            view.transform = CGAffineTransform(translationX: -350, y: 0)
+            view.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
+                
+                view.transform = .identity
+                
+                if completion != nil {
+                    completion!()
+                } else { return }
+            }
+        }
+    }
+    
+    func NSLayoutActivate(_ objects:[NSLayoutConstraint?]) {
+        for object in objects {
+            if let object = object {
+                object.isActive = true
+            }
+        }
+    }
+    
+    func NSLayoutDeactivate(_ objects:[NSLayoutConstraint?]) {
+        for object in objects {
+            if let object = object {
+                object.isActive = false
+            }
+        }
+    }
+    
 }
 
 extension UIViewController {
