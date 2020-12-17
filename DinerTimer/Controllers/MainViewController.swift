@@ -66,23 +66,19 @@ class MainViewController: UIViewController {
                             trailing: progressBar.trailingAnchor)
         
         //this will change
-        let itemSelectionView = ItemSelectionView()
-        view.addSubview(itemSelectionView)
-        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                            leading: view.leadingAnchor,
-                            bottom: progressBar.topAnchor,
-                            trailing: view.trailingAnchor)
+//        let itemSelectionView = ItemSelectionView()
+//        view.addSubview(itemSelectionView)
+//        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+//                            leading: view.leadingAnchor,
+//                            bottom: progressBar.topAnchor,
+//                            trailing: view.trailingAnchor)
         
-//        let descriptionButton = DescriptionButton(name: "Over easy", description: "Whites are cooked through with runny yolk", estimatedTime: "3 min")
-//        view.addSubview(descriptionButton)
-//        descriptionButton.centerX(inView: view)
-//        descriptionButton.centerY(inView: view)
-//
-//        let quicktipView = QuickTipView()
-//        view.addSubview(quicktipView)
-//        quicktipView.centerX(inView: view)
-//        quicktipView.centerY(inView: view)
-//
+//        let descriptionView = DescriptionView()
+//        view.addSubview(descriptionView)
+//        descriptionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+//                               leading: view.leadingAnchor,
+//                               bottom: progressBar.topAnchor,
+//                               trailing: view.trailingAnchor)
         
     }
     

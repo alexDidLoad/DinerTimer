@@ -51,10 +51,6 @@ class DescriptionButton: UIButton {
     init(name: String?, description: String?, estimatedTime: String?) {
         super.init(frame: .zero)
         
-        guard let name = name else { return }
-        guard let description = description else { return }
-        guard let estimatedTime = estimatedTime else { return }
-        
         configureUI(name: name, description: description, estimatedTime: estimatedTime)
         
     }
@@ -80,21 +76,21 @@ class DescriptionButton: UIButton {
         self.layer.bounds = self.bounds
         self.layer.position = self.center
         
-        itemName.text = name
+        itemName.text = name ?? "Name"
         addSubview(itemName)
         itemName.anchor(top: self.topAnchor,
                         leading: self.leadingAnchor,
                         paddingTop: 16,
                         paddingLeading: 16)
         
-        descriptionLabel.text = description
+        descriptionLabel.text = description ?? "Description"
         addSubview(descriptionLabel)
         descriptionLabel.anchor(top: itemName.bottomAnchor,
                                 leading: self.leadingAnchor,
                                 paddingTop: 7,
                                 paddingLeading: 16)
         
-        timeLabel.text = estimatedTime
+        timeLabel.text = estimatedTime ?? "Time"
         addSubview(timeLabel)
         timeLabel.anchor(top: self.topAnchor,
                          trailing: self.trailingAnchor,

@@ -46,7 +46,7 @@ class ItemSelectionView: UIView {
     }()
     
     private let boilButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "boil"), text: "Boil/Poach")
+        let button = CustomItemButton(withImage: UIImage(named: "boil"), text: "Boil")
         button.addTarget(self, action: #selector(handleBoilPress), for: .touchUpInside)
         return button
     }()
@@ -86,31 +86,33 @@ class ItemSelectionView: UIView {
     
     @objc private func handleEggPress() {
         print("DEBUG: Egg")
-        fade(out: topStack) {
-            self.fade(out: self.bottomStack) {
-                self.animateInMethods()
-            }
+        
+        fade(out: topStack, bottomStack) {
+            self.animateInMethods(topFirst: true)
         }
     }
     
     @objc private func handleBaconPress() {
         print("DEBUG: Bacon")
-        fade(out: topStack) {
-            self.fade(out: self.bottomStack, completion: nil)
+        
+        fade(out: topStack, bottomStack) {
+            self.animateInMethods(topFirst: true)
         }
     }
     
     @objc private func handlePancakesPress() {
         print("DEBUG: Pancake")
-        fade(out: bottomStack) {
-            self.fade(out: self.topStack, completion: nil)
+        
+        fade(out: bottomStack, topStack) {
+            self.animateInMethods(topFirst: false)
         }
     }
     
     @objc private func handlePotatoPress() {
         print("DEBUG: Potato")
-        fade(out: bottomStack) {
-            self.fade(out: self.topStack, completion: nil)
+
+        fade(out: bottomStack, topStack) {
+            self.animateInMethods(topFirst: false)
         }
     }
     
@@ -127,6 +129,29 @@ class ItemSelectionView: UIView {
     }
     
     //MARK: - Helpers
+    
+    private func animateInMethods(topFirst: Bool) {
+        let topDelay: Double
+        let botDelay: Double
+        
+        if topFirst == true {
+            topDelay = 0.5
+            botDelay = 0.8
+        } else {
+            topDelay = 0.8
+            botDelay = 0.5
+        }
+        NSLayoutDeactivate([panLeadingAnchor])
+        NSLayoutActivate([panCenterXAnchor])
+        UIView.animate(withDuration: 0.8, delay: topDelay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
+            self.layoutIfNeeded()
+        }
+        self.NSLayoutDeactivate([self.boilLeadingAnchor])
+        self.NSLayoutActivate([self.boilCenterXAnchor])
+        UIView.animate(withDuration: 0.8, delay: botDelay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
+            self.layoutIfNeeded()
+        }
+    }
     
     private func configureUI() {
         
@@ -165,21 +190,6 @@ class ItemSelectionView: UIView {
         boilLeadingAnchor?.isActive = true
         boilCenterXAnchor = boilButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         boilCenterXAnchor?.isActive = false
-        
-    }
-    
-    private func animateInMethods() {
-        NSLayoutDeactivate([panLeadingAnchor])
-        NSLayoutActivate([panCenterXAnchor])
-        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
-            self.layoutIfNeeded()
-        } completion: { _ in
-            self.NSLayoutDeactivate([self.boilLeadingAnchor])
-            self.NSLayoutActivate([self.boilCenterXAnchor])
-            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
-                self.layoutIfNeeded()
-            }
-        }
     }
     
 }

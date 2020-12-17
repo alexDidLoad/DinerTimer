@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		110E472F258A99BF0025BDA7 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E472E258A99BF0025BDA7 /* TimerViewController.swift */; };
+		110E473B258BF3C30025BDA7 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E473A258BF3C30025BDA7 /* DescriptionView.swift */; };
 		11A4BDE72583E08C00C09D7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDE62583E08C00C09D7A /* AppDelegate.swift */; };
 		11A4BDE92583E08C00C09D7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDE82583E08C00C09D7A /* SceneDelegate.swift */; };
 		11A4BDEB2583E08C00C09D7A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDEA2583E08C00C09D7A /* MainViewController.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		110E472E258A99BF0025BDA7 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		110E473A258BF3C30025BDA7 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		11A4BDE32583E08C00C09D7A /* DinerTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinerTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A4BDE62583E08C00C09D7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A4BDE82583E08C00C09D7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				11A4BE392586BAAF00C09D7A /* ItemSelectionView.swift */,
+				110E473A258BF3C30025BDA7 /* DescriptionView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			files = (
 				11A4BE6925895FD400C09D7A /* QuickTipView.swift in Sources */,
 				11A4BE32258547AC00C09D7A /* ProgressBarBubble.swift in Sources */,
+				110E473B258BF3C30025BDA7 /* DescriptionView.swift in Sources */,
 				11A4BE2F25853CAA00C09D7A /* FoodProgressBar.swift in Sources */,
 				11A4BE3A2586BAAF00C09D7A /* ItemSelectionView.swift in Sources */,
 				11A4BDEB2583E08C00C09D7A /* MainViewController.swift in Sources */,
