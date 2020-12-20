@@ -23,8 +23,6 @@ class MainViewController: UIViewController {
     
     //MARK: - Properties
     
-    var complete = "t"
-    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -33,11 +31,6 @@ class MainViewController: UIViewController {
         configureUI()
         
     }
-    
-    //MARK: - Selectors
-    
-    
-    
     //MARK: - Helpers
     
     private func configureUI() {
@@ -66,23 +59,23 @@ class MainViewController: UIViewController {
                             trailing: progressBar.trailingAnchor)
         
         //this will change
-//        let itemSelectionView = ItemSelectionView()
-//        view.addSubview(itemSelectionView)
-//        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-//                            leading: view.leadingAnchor,
-//                            bottom: progressBar.topAnchor,
-//                            trailing: view.trailingAnchor)
-        
-//        let descriptionView = DescriptionView()
-//        view.addSubview(descriptionView)
-//        descriptionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-//                               leading: view.leadingAnchor,
-//                               bottom: progressBar.topAnchor,
-//                               trailing: view.trailingAnchor)
-        
+        let itemSelectionView = ItemSelectionView()
+        itemSelectionView.delegate = self
+        view.addSubview(itemSelectionView)
+        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            leading: view.leadingAnchor,
+                            bottom: progressBar.topAnchor,
+                            trailing: view.trailingAnchor)
     }
-    
-    
 }
 
+//MARK: - ItemSelectionViewDelegate
 
+extension MainViewController: ItemSelectionViewDelegate {
+    
+    func didSelect() {
+        let timerVC = TimerViewController()
+        navigationController?.pushViewController(timerVC, animated: true)
+    }
+
+}

@@ -45,13 +45,20 @@ class DescriptionButton: UIButton {
         return label
     }()
     
+    var name: String?
+    var descriptionText: String?
+    var estimatedTime: String?
     
     //MARK: - Lifecycle
     
-    init(name: String?, description: String?, estimatedTime: String?) {
+    init(name: String?, descriptionText: String?, estimatedTime: String?) {
         super.init(frame: .zero)
         
-        configureUI(name: name, description: description, estimatedTime: estimatedTime)
+        self.name = name
+        self.descriptionText = descriptionText
+        self.estimatedTime = estimatedTime
+        
+        configureUI()
         
     }
     
@@ -61,7 +68,7 @@ class DescriptionButton: UIButton {
     
     //MARK: - Helpers
     
-    private func configureUI(name: String?, description: String?, estimatedTime: String?) {
+    private func configureUI() {
         
         self.backgroundColor = #colorLiteral(red: 0.9894167781, green: 0.9567651153, blue: 0.8911890388, alpha: 1)
         self.setDimensions(height: 76, width: 345)
@@ -83,7 +90,7 @@ class DescriptionButton: UIButton {
                         paddingTop: 16,
                         paddingLeading: 16)
         
-        descriptionLabel.text = description ?? "Description"
+        descriptionLabel.text = descriptionText ?? "Description"
         addSubview(descriptionLabel)
         descriptionLabel.anchor(top: itemName.bottomAnchor,
                                 leading: self.leadingAnchor,

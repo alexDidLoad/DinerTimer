@@ -15,6 +15,7 @@ class ItemSelectionView: UIView {
     
     //MARK: - UIComponents
     
+    //item buttons
     private let eggButton: CustomItemButton = {
         let button = CustomItemButton(withImage: UIImage(named: "fried-egg"), text: "Eggs")
         button.addTarget(self, action: #selector(handleEggPress), for: .touchUpInside)
@@ -39,32 +40,66 @@ class ItemSelectionView: UIView {
         return button
     }()
     
-    private let panButton: CustomItemButton = {
+    //method option buttons
+    private let topOptionButton: CustomItemButton = {
         let button = CustomItemButton(withImage: UIImage(named: "pan"), text: "Pan fried")
-        button.addTarget(self, action: #selector(handlePanPress), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleTopPress), for: .touchUpInside)
         return button
     }()
     
-    private let boilButton: CustomItemButton = {
+    private let bottomOptionButton: CustomItemButton = {
         let button = CustomItemButton(withImage: UIImage(named: "boil"), text: "Boil")
-        button.addTarget(self, action: #selector(handleBoilPress), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleBottomPress), for: .touchUpInside)
         return button
     }()
     
-    private let ovenButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "oven"), text: "Bake")
-        button.addTarget(self, action: #selector(handleOvenPress), for: .touchUpInside)
+    //description buttons
+    private let firstDescription: DescriptionButton = {
+        let button = DescriptionButton(name: "Sunny side up", descriptionText: "Runny yolk, not flipped", estimatedTime: "8 min")
+        button.addTarget(self, action: #selector(handleFirstPressed), for: .touchUpInside)
         return button
     }()
     
+    private let secondDescription: DescriptionButton = {
+        let button = DescriptionButton(name: "Over Easy", descriptionText: "Runny yolk and flipped", estimatedTime: "5 min")
+        button.addTarget(self, action: #selector(handleSecondPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private let thirdDescription: DescriptionButton = {
+        let button = DescriptionButton(name: "Over Medium", descriptionText: "Yolk is slightly runny and whites are set", estimatedTime: "6 min")
+        button.addTarget(self, action: #selector(handleThirdPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private let fourthDescription: DescriptionButton = {
+        let button = DescriptionButton(name: "Over Hard", descriptionText: "Yolk is firm", estimatedTime: "9 min")
+        button.addTarget(self, action: #selector(handleFourthPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    //stacks
     private var topStack: UIStackView!
     private var bottomStack: UIStackView!
     
-    private var panLeadingAnchor: NSLayoutConstraint?
-    private var panCenterXAnchor: NSLayoutConstraint?
+    //anchors
+    private var topOptionLeadingAnchor: NSLayoutConstraint?
+    private var topOptionCenterXAnchor: NSLayoutConstraint?
     
-    private var boilLeadingAnchor: NSLayoutConstraint?
-    private var boilCenterXAnchor: NSLayoutConstraint?
+    private var bottomOptionLeadingAnchor: NSLayoutConstraint?
+    private var bottomOptionCenterXAnchor: NSLayoutConstraint?
+    
+    private var firstDescriptionLeadingAnchor: NSLayoutConstraint?
+    private var firstDescriptionCenterXAnchor: NSLayoutConstraint?
+    
+    private var secondDescriptionLeadingAnchor: NSLayoutConstraint?
+    private var secondDescriptionCenterXAnchor: NSLayoutConstraint?
+    
+    private var thirdDescriptionLeadingAnchor: NSLayoutConstraint?
+    private var thirdDescriptionCenterXAnchor: NSLayoutConstraint?
+    
+    private var fourthDescriptionLeadingAnchor: NSLayoutConstraint?
+    private var fourthDescriptionCenterXAnchor: NSLayoutConstraint?
     //MARK: - Properties
     
     weak var delegate: ItemSelectionViewDelegate?
@@ -75,7 +110,6 @@ class ItemSelectionView: UIView {
         super.init(frame: .zero)
         
         configureUI()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -88,7 +122,7 @@ class ItemSelectionView: UIView {
         print("DEBUG: Egg")
         
         fade(out: topStack, bottomStack) {
-            self.animateInMethods(topFirst: true)
+            self.animateInOptions(topFirst: true)
         }
     }
     
@@ -96,7 +130,7 @@ class ItemSelectionView: UIView {
         print("DEBUG: Bacon")
         
         fade(out: topStack, bottomStack) {
-            self.animateInMethods(topFirst: true)
+            self.animateInOptions(topFirst: true)
         }
     }
     
@@ -104,52 +138,90 @@ class ItemSelectionView: UIView {
         print("DEBUG: Pancake")
         
         fade(out: bottomStack, topStack) {
-            self.animateInMethods(topFirst: false)
+            self.animateInOptions(topFirst: false)
         }
     }
     
     @objc private func handlePotatoPress() {
         print("DEBUG: Potato")
-
         fade(out: bottomStack, topStack) {
-            self.animateInMethods(topFirst: false)
+            self.animateInOptions(topFirst: false)
         }
     }
     
-    @objc private func handlePanPress() {
+    @objc private func handleTopPress() {
         print("DEBUG: Pan")
+        fade(out: topOptionButton, bottomOptionButton) {
+            self.animateInDescriptions()
+        }
     }
     
-    @objc private func handleBoilPress() {
+    @objc private func handleBottomPress() {
         print("DEBUG: Boil")
+        fade(out: bottomOptionButton, topOptionButton) {
+            self.animateInDescriptions()
+        }
     }
     
-    @objc private func handleOvenPress() {
-        print("DEBUG: Oven")
+    @objc private func handleFirstPressed() {
+        print("DEBUG: first press")
+        delegate?.didSelect()
+    }
+    
+    @objc private func handleSecondPressed() {
+        print("DEBUG: second press")
+        delegate?.didSelect()
+    }
+    
+    @objc private func handleThirdPressed() {
+        print("DEBUG: third press")
+        delegate?.didSelect()
+    }
+    
+    @objc private func handleFourthPressed() {
+        print("DEBUG: fourth press")
+        delegate?.didSelect()
     }
     
     //MARK: - Helpers
     
-    private func animateInMethods(topFirst: Bool) {
+    private func animateInOptions(topFirst: Bool) {
         let topDelay: Double
         let botDelay: Double
         
-        if topFirst == true {
-            topDelay = 0.5
-            botDelay = 0.8
+        if topFirst {
+            topDelay = 0.4
+            botDelay = 0.6
         } else {
-            topDelay = 0.8
-            botDelay = 0.5
+            topDelay = 0.6
+            botDelay = 0.4
         }
-        NSLayoutDeactivate([panLeadingAnchor])
-        NSLayoutActivate([panCenterXAnchor])
+        NSLayoutDeactivate([topOptionLeadingAnchor])
+        NSLayoutActivate([topOptionCenterXAnchor])
         UIView.animate(withDuration: 0.8, delay: topDelay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
         }
-        self.NSLayoutDeactivate([self.boilLeadingAnchor])
-        self.NSLayoutActivate([self.boilCenterXAnchor])
+        NSLayoutDeactivate([bottomOptionLeadingAnchor])
+        NSLayoutActivate([bottomOptionCenterXAnchor])
         UIView.animate(withDuration: 0.8, delay: botDelay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
+        }
+    }
+    
+    private func animateInDescriptions() {
+        let leadingAnchors = [firstDescriptionLeadingAnchor, secondDescriptionLeadingAnchor, thirdDescriptionLeadingAnchor, fourthDescriptionLeadingAnchor]
+        let centerXAnchors = [firstDescriptionCenterXAnchor, secondDescriptionCenterXAnchor, thirdDescriptionCenterXAnchor, fourthDescriptionCenterXAnchor]
+        var delay = 0.4
+        
+        for leading in leadingAnchors {
+            for centerX in centerXAnchors {
+                NSLayoutDeactivate([leading])
+                NSLayoutActivate([centerX])
+                UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
+                    self.layoutIfNeeded()
+                }
+                delay += 0.08
+            }
         }
     }
     
@@ -175,21 +247,54 @@ class ItemSelectionView: UIView {
                            trailing: topStack.trailingAnchor,
                            paddingTop: 21)
         
-        addSubview(panButton)
-        panButton.anchor(top: self.topAnchor,
-                         paddingTop: 66)
-        panLeadingAnchor = panButton.leadingAnchor.constraint(equalTo: self.trailingAnchor)
-        panLeadingAnchor?.isActive = true
-        panCenterXAnchor = panButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        panCenterXAnchor?.isActive = false
+        addSubview(topOptionButton)
+        topOptionButton.anchor(top: self.topAnchor,
+                               paddingTop: 66)
+        topOptionLeadingAnchor = topOptionButton.leadingAnchor.constraint(equalTo: self.trailingAnchor)
+        topOptionLeadingAnchor?.isActive = true
+        topOptionCenterXAnchor = topOptionButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        topOptionCenterXAnchor?.isActive = false
         
-        addSubview(boilButton)
-        boilButton.anchor(top: panButton.bottomAnchor,
-                          paddingTop: 21)
-        boilLeadingAnchor = boilButton.leadingAnchor.constraint(equalTo: self.trailingAnchor)
-        boilLeadingAnchor?.isActive = true
-        boilCenterXAnchor = boilButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        boilCenterXAnchor?.isActive = false
+        addSubview(bottomOptionButton)
+        bottomOptionButton.anchor(top: topOptionButton.bottomAnchor,
+                                  paddingTop: 21)
+        bottomOptionLeadingAnchor = bottomOptionButton.leadingAnchor.constraint(equalTo: self.trailingAnchor)
+        bottomOptionLeadingAnchor?.isActive = true
+        bottomOptionCenterXAnchor = bottomOptionButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        bottomOptionCenterXAnchor?.isActive = false
+        
+        addSubview(firstDescription)
+        firstDescription.anchor(top: self.topAnchor,
+                                paddingTop: 32)
+        firstDescriptionLeadingAnchor = firstDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
+        firstDescriptionLeadingAnchor?.isActive = true
+        firstDescriptionCenterXAnchor = firstDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        firstDescriptionCenterXAnchor?.isActive = false
+        
+        addSubview(secondDescription)
+        secondDescription.anchor(top: firstDescription.bottomAnchor,
+                                 paddingTop: 22)
+        secondDescriptionLeadingAnchor = secondDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
+        secondDescriptionLeadingAnchor?.isActive = true
+        secondDescriptionCenterXAnchor = secondDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        secondDescriptionCenterXAnchor?.isActive = false
+        
+        addSubview(thirdDescription)
+        thirdDescription.anchor(top: secondDescription.bottomAnchor,
+                                paddingTop: 22)
+        thirdDescriptionLeadingAnchor = thirdDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
+        thirdDescriptionLeadingAnchor?.isActive = true
+        thirdDescriptionCenterXAnchor = thirdDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        thirdDescriptionCenterXAnchor?.isActive = false
+        
+        addSubview(fourthDescription)
+        fourthDescription.anchor(top: thirdDescription.bottomAnchor,
+                                 paddingTop: 22)
+        fourthDescriptionLeadingAnchor = fourthDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
+        fourthDescriptionLeadingAnchor?.isActive = true
+        fourthDescriptionCenterXAnchor = fourthDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        fourthDescriptionCenterXAnchor?.isActive = false
+        
     }
     
 }

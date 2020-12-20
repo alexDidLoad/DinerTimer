@@ -17,8 +17,17 @@ class TimerViewController: UIViewController {
     
     //MARK: - Lifecycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureUI()
+    }
     
     //MARK: - Helpers
     
-    
+    private func configureUI() {
+        
+        view.backgroundColor = .green
+        
+    }
 }

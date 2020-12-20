@@ -66,7 +66,6 @@ class FoodProgressBar: UIView {
     func configureUI() {
         backgroundColor = #colorLiteral(red: 0.9335944057, green: 0.6621651053, blue: 0.7384092212, alpha: 1)
         
-        
         addSubview(line)
         line.anchor(top: self.topAnchor,
                     leading: self.leadingAnchor,

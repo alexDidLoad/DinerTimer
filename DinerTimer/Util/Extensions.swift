@@ -9,6 +9,8 @@ import UIKit
 
 extension UIView {
     
+    //MARK: - Anchors
+    
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 leading: NSLayoutXAxisAnchor? = nil,
                 bottom: NSLayoutYAxisAnchor? = nil,
@@ -81,34 +83,6 @@ extension UIView {
         widthAnchor.constraint(equalToConstant: width).isActive = true
     }
     
-    func fade(out view: UIView, _ optionalView: UIView?, completion: (() -> Void)?) {
-        
-        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
-            view.transform = CGAffineTransform(translationX: -350, y: 0)
-            view.alpha = 0
-        } completion: { _ in
-            UIView.animate(withDuration: 0.8) {
-                view.transform = .identity
-            }
-        }
-        UIView.animate(withDuration: 0.8, delay: 0.2, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
-            if let optionalView = optionalView {
-                optionalView.transform = CGAffineTransform(translationX: -350, y: 0)
-                optionalView.alpha = 0
-                if completion != nil {
-                    completion!()
-                } else {
-                    optionalView.transform = .identity
-                }
-            }
-        } completion: { _ in
-            UIView.animate(withDuration: 0.8) {
-                guard let optionalView = optionalView else { return }
-                optionalView.transform = .identity
-            }
-        }
-    }
-    
     func NSLayoutActivate(_ objects:[NSLayoutConstraint?]) {
         for object in objects {
             if let object = object {
@@ -125,7 +99,41 @@ extension UIView {
         }
     }
     
+    //MARK: - Animations
+    
+    func fade(out view: UIView, _ optionalView: UIView?, completion: (() -> Void)?) {
+        
+        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
+            view.transform = CGAffineTransform(translationX: -350, y: 0)
+            view.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.8) {
+                view.transform = .identity
+            }
+        }
+        UIView.animate(withDuration: 0.8, delay: 0.2, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
+            if let optionalView = optionalView {
+                optionalView.transform = CGAffineTransform(translationX: -350, y: 0)
+                optionalView.alpha = 0
+                
+                if completion != nil {
+                    completion!()
+                } else {
+                    optionalView.transform = .identity
+                }
+            }
+        } completion: { _ in
+            UIView.animate(withDuration: 0.8) {
+                guard let optionalView = optionalView else { return }
+                optionalView.transform = .identity
+            }
+        }
+    }
+    
+    
 }
+
+//MARK: - UI Configurations
 
 extension UIViewController {
     
@@ -167,6 +175,8 @@ extension UIViewController {
         imageView.image = img
     }
 }
+
+//MARK: - Time Formatting
 
 extension TimeInterval {
     
