@@ -32,11 +32,14 @@ class CustomItemButton: UIButton {
     
     init(withImage image: UIImage?, text: String?) {
         super.init(frame: .zero)
-        
-        guard let image = image else { return }
-        guard let text = text else { return }
-        
-        configureUI(image: image, text: text)
+        if let image = image, let text = text {
+            configureUI(image: image, text: text)
+        }
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -45,7 +48,7 @@ class CustomItemButton: UIButton {
     
     //MARK: - Helpers
     
-    private func configureUI(image: UIImage, text: String) {
+    private func configureUI(image: UIImage? = nil, text: String? = nil) {
         
         buttonImageView.image = image
         labelView.text = text
@@ -71,6 +74,12 @@ class CustomItemButton: UIButton {
         addSubview(buttonImageView)
         buttonImageView.centerX(inView: self)
         buttonImageView.anchor(bottom: labelView.topAnchor, paddingBottom: 10)
+    }
+    
+    func updateCookingOptions(withImage image: UIImage, text: String) {
+        
+        self.buttonImageView.image = image
+        self.labelView.text = text
     }
     
 }

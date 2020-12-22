@@ -38,11 +38,8 @@ class TimerViewController: UIViewController {
         let quickTipView = QuickTipView()
         view.addSubview(quickTipView)
         quickTipView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                            leading: view.leadingAnchor,
-                            trailing: view.trailingAnchor,
-                            paddingTop: 33,
-                            paddingLeading: 15,
-                            paddingTrailing: 15)
+                            paddingTop: 33)
+        quickTipView.centerX(inView: view)
         
         let timerView = PulsingTimer()
         view.addSubview(timerView)

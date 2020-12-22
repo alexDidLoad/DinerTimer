@@ -160,9 +160,8 @@ class PulsingTimer: UIView {
         layer.addSublayer(pulsingLayer)
         
         
-//        cookTime = calculator.calculateCookTime(for: PROTEIN.type, method: PROTEIN.method, doneness: PROTEIN.doneness)
-//        timeLeft = cookTime
-        timeLeft = 0.0
+        cookTime = calculator.calculateCookTime(for: breakfastItem.type, method: breakfastItem.method, doneness: breakfastItem.doneness)
+        timeLeft = cookTime
         timerLabel.text = timeLeft.time
         addSubview(timerLabel)
         timerLabel.centerX(inView: self)

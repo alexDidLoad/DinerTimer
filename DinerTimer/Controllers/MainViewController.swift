@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     
     //MARK: - Properties
     
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -63,9 +64,8 @@ class MainViewController: UIViewController {
         itemSelectionView.delegate = self
         view.addSubview(itemSelectionView)
         itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                            leading: view.leadingAnchor,
-                            bottom: progressBar.topAnchor,
-                            trailing: view.trailingAnchor)
+                                 bottom: progressBar.topAnchor)
+        itemSelectionView.centerX(inView: view, leadingAnchor: view.leadingAnchor)
     }
 }
 
@@ -77,5 +77,5 @@ extension MainViewController: ItemSelectionViewDelegate {
         let timerVC = TimerViewController()
         navigationController?.pushViewController(timerVC, animated: true)
     }
-
+    
 }

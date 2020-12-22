@@ -45,21 +45,12 @@ class DescriptionButton: UIButton {
         return label
     }()
     
-    var name: String?
-    var descriptionText: String?
-    var estimatedTime: String?
-    
     //MARK: - Lifecycle
     
-    init(name: String?, descriptionText: String?, estimatedTime: String?) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        self.name = name
-        self.descriptionText = descriptionText
-        self.estimatedTime = estimatedTime
-        
         configureUI()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -83,26 +74,29 @@ class DescriptionButton: UIButton {
         self.layer.bounds = self.bounds
         self.layer.position = self.center
         
-        itemName.text = name ?? "Name"
         addSubview(itemName)
         itemName.anchor(top: self.topAnchor,
                         leading: self.leadingAnchor,
                         paddingTop: 16,
                         paddingLeading: 16)
         
-        descriptionLabel.text = descriptionText ?? "Description"
         addSubview(descriptionLabel)
         descriptionLabel.anchor(top: itemName.bottomAnchor,
                                 leading: self.leadingAnchor,
                                 paddingTop: 7,
                                 paddingLeading: 16)
         
-        timeLabel.text = estimatedTime ?? "Time"
         addSubview(timeLabel)
         timeLabel.anchor(top: self.topAnchor,
                          trailing: self.trailingAnchor,
                          paddingTop: 16,
                          paddingTrailing: 16)
+    }
+    
+    func updateDescription(name: String, descriptionText: String, estimatedTime: String) {
+        self.itemName.text = name
+        self.descriptionLabel.text = descriptionText
+        self.timeLabel.text = estimatedTime
     }
     
 }

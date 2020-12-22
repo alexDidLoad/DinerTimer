@@ -83,20 +83,12 @@ extension UIView {
         widthAnchor.constraint(equalToConstant: width).isActive = true
     }
     
-    func NSLayoutActivate(_ objects:[NSLayoutConstraint?]) {
-        for object in objects {
-            if let object = object {
-                object.isActive = true
-            }
-        }
+    func NSLayoutActivate(_ objects:[NSLayoutConstraint]) {
+        objects.forEach({$0.isActive = true})
     }
     
-    func NSLayoutDeactivate(_ objects:[NSLayoutConstraint?]) {
-        for object in objects {
-            if let object = object {
-                object.isActive = false
-            }
-        }
+    func NSLayoutDeactivate(_ objects:[NSLayoutConstraint]) {
+        objects.forEach({$0.isActive = false})
     }
     
     //MARK: - Animations

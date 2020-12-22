@@ -35,45 +35,45 @@ class ItemSelectionView: UIView {
     }()
     
     private let potatoButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "potatoes"), text: "Potatoes")
+        let button = CustomItemButton(withImage: UIImage(named: "potatoes"), text: "Hashbrowns")
         button.addTarget(self, action: #selector(handlePotatoPress), for: .touchUpInside)
         return button
     }()
     
     //method option buttons
     private let topOptionButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "pan"), text: "Pan fried")
+        let button = CustomItemButton()
         button.addTarget(self, action: #selector(handleTopPress), for: .touchUpInside)
         return button
     }()
     
     private let bottomOptionButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "boil"), text: "Boil")
+        let button = CustomItemButton()
         button.addTarget(self, action: #selector(handleBottomPress), for: .touchUpInside)
         return button
     }()
     
     //description buttons
     private let firstDescription: DescriptionButton = {
-        let button = DescriptionButton(name: "Sunny side up", descriptionText: "Runny yolk, not flipped", estimatedTime: "8 min")
+        let button = DescriptionButton()
         button.addTarget(self, action: #selector(handleFirstPressed), for: .touchUpInside)
         return button
     }()
     
     private let secondDescription: DescriptionButton = {
-        let button = DescriptionButton(name: "Over Easy", descriptionText: "Runny yolk and flipped", estimatedTime: "5 min")
+        let button = DescriptionButton()
         button.addTarget(self, action: #selector(handleSecondPressed), for: .touchUpInside)
         return button
     }()
     
     private let thirdDescription: DescriptionButton = {
-        let button = DescriptionButton(name: "Over Medium", descriptionText: "Yolk is slightly runny and whites are set", estimatedTime: "6 min")
+        let button = DescriptionButton()
         button.addTarget(self, action: #selector(handleThirdPressed), for: .touchUpInside)
         return button
     }()
     
     private let fourthDescription: DescriptionButton = {
-        let button = DescriptionButton(name: "Over Hard", descriptionText: "Yolk is firm", estimatedTime: "9 min")
+        let button = DescriptionButton()
         button.addTarget(self, action: #selector(handleFourthPressed), for: .touchUpInside)
         return button
     }()
@@ -83,23 +83,23 @@ class ItemSelectionView: UIView {
     private var bottomStack: UIStackView!
     
     //anchors
-    private var topOptionLeadingAnchor: NSLayoutConstraint?
-    private var topOptionCenterXAnchor: NSLayoutConstraint?
+    private var topOptionLeadingAnchor: NSLayoutConstraint!
+    private var topOptionCenterXAnchor: NSLayoutConstraint!
     
-    private var bottomOptionLeadingAnchor: NSLayoutConstraint?
-    private var bottomOptionCenterXAnchor: NSLayoutConstraint?
+    private var bottomOptionLeadingAnchor: NSLayoutConstraint!
+    private var bottomOptionCenterXAnchor: NSLayoutConstraint!
     
-    private var firstDescriptionLeadingAnchor: NSLayoutConstraint?
-    private var firstDescriptionCenterXAnchor: NSLayoutConstraint?
+    private var firstDescriptionLeadingAnchor: NSLayoutConstraint!
+    private var firstDescriptionCenterXAnchor: NSLayoutConstraint!
     
-    private var secondDescriptionLeadingAnchor: NSLayoutConstraint?
-    private var secondDescriptionCenterXAnchor: NSLayoutConstraint?
+    private var secondDescriptionLeadingAnchor: NSLayoutConstraint!
+    private var secondDescriptionCenterXAnchor: NSLayoutConstraint!
     
-    private var thirdDescriptionLeadingAnchor: NSLayoutConstraint?
-    private var thirdDescriptionCenterXAnchor: NSLayoutConstraint?
+    private var thirdDescriptionLeadingAnchor: NSLayoutConstraint!
+    private var thirdDescriptionCenterXAnchor: NSLayoutConstraint!
     
-    private var fourthDescriptionLeadingAnchor: NSLayoutConstraint?
-    private var fourthDescriptionCenterXAnchor: NSLayoutConstraint?
+    private var fourthDescriptionLeadingAnchor: NSLayoutConstraint!
+    private var fourthDescriptionCenterXAnchor: NSLayoutConstraint!
     //MARK: - Properties
     
     weak var delegate: ItemSelectionViewDelegate?
@@ -119,7 +119,10 @@ class ItemSelectionView: UIView {
     //MARK: - Selectors
     
     @objc private func handleEggPress() {
-        print("DEBUG: Egg")
+        breakfastItem.type = "egg"
+        
+        topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
+        bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "boil")!, text: "Boil / Poach")
         
         fade(out: topStack, bottomStack) {
             self.animateInOptions(topFirst: true)
@@ -127,7 +130,10 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handleBaconPress() {
-        print("DEBUG: Bacon")
+        breakfastItem.type = "bacon"
+        
+        topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
+        bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
         
         fade(out: topStack, bottomStack) {
             self.animateInOptions(topFirst: true)
@@ -135,7 +141,10 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handlePancakesPress() {
-        print("DEBUG: Pancake")
+        breakfastItem.type = "pancake"
+        
+        topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
+        bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
         
         fade(out: bottomStack, topStack) {
             self.animateInOptions(topFirst: false)
@@ -143,28 +152,40 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handlePotatoPress() {
-        print("DEBUG: Potato")
+        breakfastItem.type = "potato"
+        
+        topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
+        bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
+        
         fade(out: bottomStack, topStack) {
             self.animateInOptions(topFirst: false)
         }
     }
     
     @objc private func handleTopPress() {
-        print("DEBUG: Pan")
+        breakfastItem.method = "pan"
+        updateTopButtonDescription(firstDescription,
+                                   secondDescription,
+                                   thirdDescription,
+                                   fourthDescription)
         fade(out: topOptionButton, bottomOptionButton) {
             self.animateInDescriptions()
         }
     }
     
     @objc private func handleBottomPress() {
-        print("DEBUG: Boil")
+        if breakfastItem.type == "egg" {
+            breakfastItem.method = "boil"
+        }
+        
         fade(out: bottomOptionButton, topOptionButton) {
             self.animateInDescriptions()
         }
     }
     
-    @objc private func handleFirstPressed() {
-        print("DEBUG: first press")
+    @objc private func handleFirstPressed(sender: UIButton) {
+        print(sender)
+        updateDoneness()
         delegate?.didSelect()
     }
     
@@ -185,6 +206,42 @@ class ItemSelectionView: UIView {
     
     //MARK: - Helpers
     
+    private func updateDoneness() {
+        if breakfastItem.type == "egg" {
+    
+        }
+    }
+    
+    private func updateTopButtonDescription(_ first: DescriptionButton, _ second: DescriptionButton, _ third: DescriptionButton, _ fourth: DescriptionButton) {
+        
+        if breakfastItem.type == "egg" {
+            first.updateDescription(name: "Sunny side up",
+                                    descriptionText: "Yolk is runny and whites are just set",
+                                    estimatedTime: "8 min")
+            second.updateDescription(name: "Over Easy",
+                                     descriptionText: "Egg is flipped, yolk is runny ",
+                                     estimatedTime: "5 min")
+            third.updateDescription(name: "Over Medium",
+                                    descriptionText: "Egg is flipped, yolk is slightly firm",
+                                    estimatedTime: "6 min")
+            fourth.updateDescription(name: "Over Hard",
+                                     descriptionText: "Egg is flipped, yolk is very firm",
+                                     estimatedTime: "9 min")
+        } else if breakfastItem.type == "bacon" {
+            first.updateDescription(name: "Chewspy",
+                                    descriptionText: "Slightly crisp with chew",
+                                    estimatedTime: "8 min")
+            second.updateDescription(name: "Crispy",
+                                     descriptionText: "The ideal version of bacon",
+                                     estimatedTime: "10 min")
+            third.updateDescription(name: "Very Crispy",
+                                    descriptionText: "So crispy that it's almost like a chip",
+                                    estimatedTime: "12 min")
+            fourth.isHidden = true
+        }
+       
+    }
+    
     private func animateInOptions(topFirst: Bool) {
         let topDelay: Double
         let botDelay: Double
@@ -196,6 +253,7 @@ class ItemSelectionView: UIView {
             topDelay = 0.6
             botDelay = 0.4
         }
+        
         NSLayoutDeactivate([topOptionLeadingAnchor])
         NSLayoutActivate([topOptionCenterXAnchor])
         UIView.animate(withDuration: 0.8, delay: topDelay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
@@ -215,8 +273,8 @@ class ItemSelectionView: UIView {
         
         for leading in leadingAnchors {
             for centerX in centerXAnchors {
-                NSLayoutDeactivate([leading])
-                NSLayoutActivate([centerX])
+                NSLayoutDeactivate([leading!])
+                NSLayoutActivate([centerX!])
                 UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
                     self.layoutIfNeeded()
                 }
