@@ -21,6 +21,8 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    let progressBar = FoodProgressBar()
+    
     //MARK: - Properties
     
     
@@ -46,7 +48,6 @@ class MainViewController: UIViewController {
         backgroundImageView.centerY(inView: view)
         
         //bottomView
-        let progressBar = FoodProgressBar()
         progressBar.setHeight(height: 265)
         view.addSubview(progressBar)
         progressBar.centerX(inView: view)
@@ -59,7 +60,6 @@ class MainViewController: UIViewController {
         optionsLabel.anchor(leading: progressBar.leadingAnchor,
                             trailing: progressBar.trailingAnchor)
         
-        //this will change
         let itemSelectionView = ItemSelectionView()
         itemSelectionView.delegate = self
         view.addSubview(itemSelectionView)
@@ -72,6 +72,18 @@ class MainViewController: UIViewController {
 //MARK: - ItemSelectionViewDelegate
 
 extension MainViewController: ItemSelectionViewDelegate {
+    
+    func changeThirdProgressBubble() {
+        progressBar.thirdBubble.bubbleImageView.image = UIImage(named: "cooking")
+    }
+    
+    func changeProgressBarMethod(withMethod method: String) {
+        progressBar.secondBubble.bubbleImageView.image = UIImage(named: method)
+    }
+    
+    func changeProgressBarItem(withItem item: String) {
+        progressBar.firstBubble.bubbleImageView.image = UIImage(named: item)
+    }
     
     func didSelect() {
         let timerVC = TimerViewController()

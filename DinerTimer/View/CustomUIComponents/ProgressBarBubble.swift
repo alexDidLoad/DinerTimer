@@ -11,7 +11,7 @@ class ProgressBarBubble: UIView {
     
     //MARK: - Properties
     
-    private let bubbleImageView: UIImageView = {
+    let bubbleImageView: UIImageView = {
         let iv = UIImageView()
         iv.setDimensions(height: 22, width: 22)
         return iv

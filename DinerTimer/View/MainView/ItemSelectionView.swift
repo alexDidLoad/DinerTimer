@@ -9,6 +9,9 @@ import UIKit
 
 protocol ItemSelectionViewDelegate: class {
     func didSelect()
+    func changeProgressBarItem(withItem item: String)
+    func changeProgressBarMethod(withMethod method: String)
+    func changeThirdProgressBubble()
 }
 
 class ItemSelectionView: UIView {
@@ -17,25 +20,25 @@ class ItemSelectionView: UIView {
     
     //item buttons
     private let eggButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "fried-egg"), text: "Eggs")
+        let button = CustomItemButton(withImage: eggImage, text: "Eggs")
         button.addTarget(self, action: #selector(handleEggPress), for: .touchUpInside)
         return button
     }()
     
     private let baconButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "bacon"), text: "Bacon")
+        let button = CustomItemButton(withImage: baconImage, text: "Bacon")
         button.addTarget(self, action: #selector(handleBaconPress), for: .touchUpInside)
         return button
     }()
     
     private let pancakesButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "pancakes"), text: "Pancakes")
+        let button = CustomItemButton(withImage: pancakeImage, text: "Pancakes")
         button.addTarget(self, action: #selector(handlePancakesPress), for: .touchUpInside)
         return button
     }()
     
     private let potatoButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "hashbrown"), text: "Hashbrowns")
+        let button = CustomItemButton(withImage: hashbrownImage, text: "Hashbrowns")
         button.addTarget(self, action: #selector(handlePotatoPress), for: .touchUpInside)
         return button
     }()
@@ -123,71 +126,74 @@ class ItemSelectionView: UIView {
     //MARK: - Selectors
     
     @objc private func handleEggPress() {
+        delegate?.changeProgressBarItem(withItem: egg)
         breakfastItem.type = egg
-        
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "boil")!, text: "Boil / Poach")
         
-        fade(out: topStack, bottomStack) {
+        fade(out: topStack, [bottomStack]) {
             self.animateInOptions(topFirst: true)
         }
     }
     
     @objc private func handleBaconPress() {
+        delegate?.changeProgressBarItem(withItem: bacon)
         breakfastItem.type = bacon
-        
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
         
-        fade(out: topStack, bottomStack) {
+        fade(out: topStack, [bottomStack]) {
             self.animateInOptions(topFirst: true)
         }
     }
     
     @objc private func handlePancakesPress() {
+        delegate?.changeProgressBarItem(withItem: pancake)
         breakfastItem.type = pancake
-        
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
         
-        fade(out: bottomStack, topStack) {
+        fade(out: bottomStack, [topStack]) {
             self.animateInOptions(topFirst: false)
         }
     }
     
     @objc private func handlePotatoPress() {
+        delegate?.changeProgressBarItem(withItem: hashbrown)
         breakfastItem.type = hashbrown
-        
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
         
-        fade(out: bottomStack, topStack) {
+        fade(out: bottomStack, [topStack]) {
             self.animateInOptions(topFirst: false)
         }
     }
     
     @objc private func handleTopPress() {
+        delegate?.changeProgressBarMethod(withMethod: pan)
         breakfastItem.method = pan
         updateTopButtonDescription(firstDescription,
                                    secondDescription,
                                    thirdDescription,
                                    fourthDescription)
-        fade(out: topOptionButton, bottomOptionButton) {
+        fade(out: topOptionButton, [bottomOptionButton]) {
             self.animateInDescriptions()
         }
     }
     
     @objc private func handleBottomPress() {
         if breakfastItem.type == egg {
+            delegate?.changeProgressBarMethod(withMethod: boil)
             breakfastItem.method = boil
         } else {
+            delegate?.changeProgressBarMethod(withMethod: oven)
             breakfastItem.method = oven
         }
         updateBottomButtonDescription(firstDescription,
                                       secondDescription,
                                       thirdDescription,
                                       fourthDescription)
-        fade(out: bottomOptionButton, topOptionButton) {
+        fade(out: bottomOptionButton, [topOptionButton]) {
             self.animateInDescriptions()
         }
     }
@@ -195,24 +201,28 @@ class ItemSelectionView: UIView {
     @objc private func handleFirstPressed() {
         firstPressed = true
         updateDoneness()
-        delegate?.didSelect()
+        animateOutDescriptions()
     }
     
     @objc private func handleSecondPressed() {
         secondPressed = true
         updateDoneness()
-        delegate?.didSelect()
+        animateOutDescriptions()
     }
     
     @objc private func handleThirdPressed() {
         thirdPressed = true
         updateDoneness()
-        delegate?.didSelect()
+        animateOutDescriptions()
     }
     
     @objc private func handleFourthPressed() {
         fourthPressed = true
         updateDoneness()
+        animateOutDescriptions()
+    }
+    
+    @objc private func pushToTimerVC() {
         delegate?.didSelect()
     }
     
@@ -362,6 +372,12 @@ class ItemSelectionView: UIView {
         }
     }
     
+    private func animateOutDescriptions() {
+        fade(out: firstDescription, [secondDescription, thirdDescription, fourthDescription])
+        delegate?.changeThirdProgressBubble()
+        perform(#selector(pushToTimerVC), with: nil, afterDelay: 1.5)
+    }
+    
     private func animateInOptions(topFirst: Bool) {
         let topDelay: Double
         let botDelay: Double
@@ -389,25 +405,25 @@ class ItemSelectionView: UIView {
         NSLayoutDeactivate([firstDescriptionLeadingAnchor])
         self.layoutIfNeeded()
         NSLayoutActivate([firstDescriptionCenterXAnchor])
-        UIView.animate(withDuration: 0.8, delay: 0.4, options: .curveEaseIn) {
+        UIView.animate(withDuration: 0.8, delay: 0.3, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
         }
         NSLayoutDeactivate([secondDescriptionLeadingAnchor])
         self.layoutIfNeeded()
         NSLayoutActivate([secondDescriptionCenterXAnchor])
-        UIView.animate(withDuration: 0.8, delay: 0.5, options: .curveEaseIn) {
+        UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
         }
         NSLayoutDeactivate([thirdDescriptionLeadingAnchor])
         self.layoutIfNeeded()
         NSLayoutActivate([thirdDescriptionCenterXAnchor])
-        UIView.animate(withDuration: 0.8, delay: 0.6, options: .curveEaseIn) {
+        UIView.animate(withDuration: 0.8, delay: 0.5, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
         }
         NSLayoutDeactivate([fourthDescriptionLeadingAnchor])
         self.layoutIfNeeded()
         NSLayoutActivate([fourthDescriptionCenterXAnchor])
-        UIView.animate(withDuration: 0.8, delay: 0.7, options: .curveEaseIn) {
+        UIView.animate(withDuration: 0.8, delay: 0.6, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
         }
     }

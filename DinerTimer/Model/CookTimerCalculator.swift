@@ -19,7 +19,7 @@ struct CookTimeCalculator {
         } else if item == pancake {
             calculatePancakes(method: method, doneness: doneness)
         } else {
-            calculatePotatoes(method: method, doneness: doneness)
+            calculateHashbrowns(method: method, doneness: doneness)
         }
         return cookTime
     }
@@ -96,7 +96,7 @@ struct CookTimeCalculator {
         }
     }
     
-    private mutating func calculatePotatoes(method: String, doneness: String) {
+    private mutating func calculateHashbrowns(method: String, doneness: String) {
         switch method {
         case pan:
             switch doneness {

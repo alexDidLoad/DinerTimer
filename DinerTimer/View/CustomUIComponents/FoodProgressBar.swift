@@ -18,25 +18,25 @@ class FoodProgressBar: UIView {
         return lineView
     }()
     
-    private let firstBubble: ProgressBarBubble = {
+    let firstBubble: ProgressBarBubble = {
         let bubble = ProgressBarBubble(withImage: nil)
         bubble.setDimensions(height: 44, width: 44)
         return bubble
     }()
     
-    private let secondBubble: ProgressBarBubble = {
+    let secondBubble: ProgressBarBubble = {
         let bubble = ProgressBarBubble(withImage: nil)
         bubble.setDimensions(height: 44, width: 44)
         return bubble
     }()
     
-    private let thirdBubble: ProgressBarBubble = {
+    let thirdBubble: ProgressBarBubble = {
         let bubble = ProgressBarBubble(withImage: nil)
         bubble.setDimensions(height: 44, width: 44)
         return bubble
     }()
     
-    private let lastBubble: ProgressBarBubble = {
+    let lastBubble: ProgressBarBubble = {
         let bubble = ProgressBarBubble(withImage: UIImage(systemName: "bell"))
         bubble.tintColor = .black
         bubble.setDimensions(height: 44, width: 44)

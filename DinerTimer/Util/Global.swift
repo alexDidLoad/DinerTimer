@@ -32,3 +32,8 @@ let veryCrispy = "very crispy"
 let pan = "pan"
 let boil = "boil"
 let oven = "oven"
+
+let eggImage = UIImage(named: egg)
+let baconImage = UIImage(named: bacon)
+let pancakeImage = UIImage(named: pancake)
+let hashbrownImage = UIImage(named: hashbrown)

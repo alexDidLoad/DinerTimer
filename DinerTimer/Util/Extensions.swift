@@ -93,7 +93,9 @@ extension UIView {
     
     //MARK: - Animations
     
-    func fade(out view: UIView, _ optionalView: UIView?, completion: (() -> Void)?) {
+    func fade(out view: UIView, _ optionalViews: [UIView]? = nil, completion: (() -> Void)? = nil) {
+        guard let optionalViews = optionalViews else { return }
+        var delay = 0.2
         
         UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
             view.transform = CGAffineTransform(translationX: -350, y: 0)
@@ -103,22 +105,20 @@ extension UIView {
                 view.transform = .identity
             }
         }
-        UIView.animate(withDuration: 0.8, delay: 0.2, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
-            if let optionalView = optionalView {
+        
+        for optionalView in optionalViews {
+            UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
                 optionalView.transform = CGAffineTransform(translationX: -350, y: 0)
                 optionalView.alpha = 0
-                
-                if completion != nil {
-                    completion!()
-                } else {
+            } completion: { _ in
+                UIView.animate(withDuration: 0.8) {
                     optionalView.transform = .identity
                 }
             }
-        } completion: { _ in
-            UIView.animate(withDuration: 0.8) {
-                guard let optionalView = optionalView else { return }
-                optionalView.transform = .identity
-            }
+            delay += 0.1
+        }
+        if completion != nil {
+            completion!()
         }
     }
     
