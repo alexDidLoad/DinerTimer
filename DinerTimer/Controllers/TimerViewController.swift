@@ -27,6 +27,10 @@ class TimerViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
+        configureNavBar(withTitle: "\(breakfastItem.type.capitalized) | \(breakfastItem.method.capitalized) | \(breakfastItem.doneness.capitalized)",
+                        prefersLargeTitle: false)
+        navigationItem.hidesBackButton = true
+        
         
         let backgroundImageView = UIImageView()
         backgroundImageView.setDimensions(height: view.frame.height, width: view.frame.width)

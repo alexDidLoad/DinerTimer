@@ -35,7 +35,7 @@ class ItemSelectionView: UIView {
     }()
     
     private let potatoButton: CustomItemButton = {
-        let button = CustomItemButton(withImage: UIImage(named: "potatoes"), text: "Hashbrowns")
+        let button = CustomItemButton(withImage: UIImage(named: "hashbrown"), text: "Hashbrowns")
         button.addTarget(self, action: #selector(handlePotatoPress), for: .touchUpInside)
         return button
     }()
@@ -104,6 +104,10 @@ class ItemSelectionView: UIView {
     
     weak var delegate: ItemSelectionViewDelegate?
     
+    private var firstPressed: Bool = false
+    private var secondPressed: Bool = false
+    private var thirdPressed: Bool = false
+    private var fourthPressed: Bool = false
     //MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -119,7 +123,7 @@ class ItemSelectionView: UIView {
     //MARK: - Selectors
     
     @objc private func handleEggPress() {
-        breakfastItem.type = "egg"
+        breakfastItem.type = egg
         
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "boil")!, text: "Boil / Poach")
@@ -130,7 +134,7 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handleBaconPress() {
-        breakfastItem.type = "bacon"
+        breakfastItem.type = bacon
         
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
@@ -141,7 +145,7 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handlePancakesPress() {
-        breakfastItem.type = "pancake"
+        breakfastItem.type = pancake
         
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
@@ -152,7 +156,7 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handlePotatoPress() {
-        breakfastItem.type = "potato"
+        breakfastItem.type = hashbrown
         
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
@@ -163,7 +167,7 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handleTopPress() {
-        breakfastItem.method = "pan"
+        breakfastItem.method = pan
         updateTopButtonDescription(firstDescription,
                                    secondDescription,
                                    thirdDescription,
@@ -174,47 +178,142 @@ class ItemSelectionView: UIView {
     }
     
     @objc private func handleBottomPress() {
-        if breakfastItem.type == "egg" {
-            breakfastItem.method = "boil"
+        if breakfastItem.type == egg {
+            breakfastItem.method = boil
+        } else {
+            breakfastItem.method = oven
         }
-        
+        updateBottomButtonDescription(firstDescription,
+                                      secondDescription,
+                                      thirdDescription,
+                                      fourthDescription)
         fade(out: bottomOptionButton, topOptionButton) {
             self.animateInDescriptions()
         }
     }
     
-    @objc private func handleFirstPressed(sender: UIButton) {
-        print(sender)
+    @objc private func handleFirstPressed() {
+        firstPressed = true
         updateDoneness()
         delegate?.didSelect()
     }
     
     @objc private func handleSecondPressed() {
-        print("DEBUG: second press")
+        secondPressed = true
+        updateDoneness()
         delegate?.didSelect()
     }
     
     @objc private func handleThirdPressed() {
-        print("DEBUG: third press")
+        thirdPressed = true
+        updateDoneness()
         delegate?.didSelect()
     }
     
     @objc private func handleFourthPressed() {
-        print("DEBUG: fourth press")
+        fourthPressed = true
+        updateDoneness()
         delegate?.didSelect()
     }
     
     //MARK: - Helpers
     
     private func updateDoneness() {
-        if breakfastItem.type == "egg" {
+        if firstPressed {
+            if breakfastItem.method == boil {
+                breakfastItem.doneness = softBoil
+            } else {
+                switch breakfastItem.type {
+                case egg:
+                    breakfastItem.doneness = sunnyside
+                case bacon:
+                    breakfastItem.doneness = chewy
+                default:
+                    breakfastItem.doneness = light
+                }
+            }
+        } else if secondPressed {
+            if breakfastItem.method == boil {
+                breakfastItem.doneness = mediumBoil
+            } else {
+                switch breakfastItem.type {
+                case egg:
+                    breakfastItem.doneness = overEasy
+                case bacon:
+                    breakfastItem.doneness = crispy
+                case hashbrown:
+                    breakfastItem.doneness = crispy
+                default:
+                    breakfastItem.doneness = brown
+                }
+            }
+        } else if thirdPressed {
+            if breakfastItem.method == boil {
+                breakfastItem.doneness = hardBoil
+            } else {
+                switch breakfastItem.type {
+                case egg:
+                    breakfastItem.doneness = overMedium
+                default:
+                    breakfastItem.doneness = veryCrispy
+                }
+            }
+        } else if fourthPressed {
+            breakfastItem.doneness = overHard
+        }
+    }
     
+    private func updateBottomButtonDescription(_ first: DescriptionButton, _ second: DescriptionButton, _ third: DescriptionButton, _ fourth: DescriptionButton) {
+        if breakfastItem.type == egg {
+            first.updateDescription(name: "Soft Boil",
+                                    descriptionText: "Yolk is runny",
+                                    estimatedTime: "6 min")
+            second.updateDescription(name: "Medium Boil",
+                                     descriptionText: "Yolk has fudge-like texture",
+                                     estimatedTime: "8 min")
+            third.updateDescription(name: "Hard Boil",
+                                    descriptionText: "Yolk is set and chalky",
+                                    estimatedTime: "12 min")
+            fourth.isHidden = true
+        } else if breakfastItem.type == bacon {
+            first.updateDescription(name: "Chewspy",
+                                    descriptionText: "Slightly crisp with chew",
+                                    estimatedTime: "10 min")
+            second.updateDescription(name: "Crispy",
+                                     descriptionText: "The ideal version of bacon",
+                                     estimatedTime: "13 min")
+            third.updateDescription(name: "Very Crispy",
+                                    descriptionText: "So crispy that it's almost like a chip",
+                                    estimatedTime: "15 min")
+            fourth.isHidden = true
+        } else if breakfastItem.type == pancake {
+            first.updateDescription(name: "Light",
+                                    descriptionText: "Very little browning, soft",
+                                    estimatedTime: "5 min")
+            second.updateDescription(name: "Browned",
+                                     descriptionText: "Hints of caramalize flavor, slightly firm",
+                                     estimatedTime: "6 min")
+            third.updateDescription(name: "Dark",
+                                    descriptionText: "Smokey flavor, slightly bitter and crisp",
+                                    estimatedTime: "7 min")
+            fourth.isHidden = true
+        } else if breakfastItem.type == hashbrown {
+            first.updateDescription(name: "Light",
+                                    descriptionText: "Slightly crisp, a bit mushy",
+                                    estimatedTime: "20 min")
+            second.updateDescription(name: "Crispy",
+                                     descriptionText: "Crispy outside and slightly mushy inside",
+                                     estimatedTime: "27 min")
+            third.updateDescription(name: "Very Crispy",
+                                    descriptionText: "Crispy inside and out",
+                                    estimatedTime: "30 min")
+            fourth.isHidden = true
         }
     }
     
     private func updateTopButtonDescription(_ first: DescriptionButton, _ second: DescriptionButton, _ third: DescriptionButton, _ fourth: DescriptionButton) {
         
-        if breakfastItem.type == "egg" {
+        if breakfastItem.type == egg {
             first.updateDescription(name: "Sunny side up",
                                     descriptionText: "Yolk is runny and whites are just set",
                                     estimatedTime: "8 min")
@@ -227,7 +326,7 @@ class ItemSelectionView: UIView {
             fourth.updateDescription(name: "Over Hard",
                                      descriptionText: "Egg is flipped, yolk is very firm",
                                      estimatedTime: "9 min")
-        } else if breakfastItem.type == "bacon" {
+        } else if breakfastItem.type == bacon {
             first.updateDescription(name: "Chewspy",
                                     descriptionText: "Slightly crisp with chew",
                                     estimatedTime: "8 min")
@@ -238,8 +337,29 @@ class ItemSelectionView: UIView {
                                     descriptionText: "So crispy that it's almost like a chip",
                                     estimatedTime: "12 min")
             fourth.isHidden = true
+        } else if breakfastItem.type == pancake {
+            first.updateDescription(name: "Light",
+                                    descriptionText: "Very little browning, soft",
+                                    estimatedTime: "2 min")
+            second.updateDescription(name: "Browned",
+                                     descriptionText: "Hints of caramalize flavor, slightly firm",
+                                     estimatedTime: "3 min")
+            third.updateDescription(name: "Dark",
+                                    descriptionText: "Smokey flavor, slightly bitter and crisp",
+                                    estimatedTime: "4 min")
+            fourth.isHidden = true
+        } else if breakfastItem.type == hashbrown {
+            first.updateDescription(name: "Light",
+                                    descriptionText: "Slightly crisp, a bit mushy",
+                                    estimatedTime: "4 min")
+            second.updateDescription(name: "Crispy",
+                                     descriptionText: "Crispy outside and slightly mushy inside",
+                                     estimatedTime: "6 min")
+            third.updateDescription(name: "Very Crispy",
+                                    descriptionText: "Crispy inside and out",
+                                    estimatedTime: "7 min")
+            fourth.isHidden = true
         }
-       
     }
     
     private func animateInOptions(topFirst: Bool) {
@@ -253,7 +373,6 @@ class ItemSelectionView: UIView {
             topDelay = 0.6
             botDelay = 0.4
         }
-        
         NSLayoutDeactivate([topOptionLeadingAnchor])
         NSLayoutActivate([topOptionCenterXAnchor])
         UIView.animate(withDuration: 0.8, delay: topDelay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
@@ -267,19 +386,29 @@ class ItemSelectionView: UIView {
     }
     
     private func animateInDescriptions() {
-        let leadingAnchors = [firstDescriptionLeadingAnchor, secondDescriptionLeadingAnchor, thirdDescriptionLeadingAnchor, fourthDescriptionLeadingAnchor]
-        let centerXAnchors = [firstDescriptionCenterXAnchor, secondDescriptionCenterXAnchor, thirdDescriptionCenterXAnchor, fourthDescriptionCenterXAnchor]
-        var delay = 0.4
-        
-        for leading in leadingAnchors {
-            for centerX in centerXAnchors {
-                NSLayoutDeactivate([leading!])
-                NSLayoutActivate([centerX!])
-                UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
-                    self.layoutIfNeeded()
-                }
-                delay += 0.08
-            }
+        NSLayoutDeactivate([firstDescriptionLeadingAnchor])
+        self.layoutIfNeeded()
+        NSLayoutActivate([firstDescriptionCenterXAnchor])
+        UIView.animate(withDuration: 0.8, delay: 0.4, options: .curveEaseIn) {
+            self.layoutIfNeeded()
+        }
+        NSLayoutDeactivate([secondDescriptionLeadingAnchor])
+        self.layoutIfNeeded()
+        NSLayoutActivate([secondDescriptionCenterXAnchor])
+        UIView.animate(withDuration: 0.8, delay: 0.5, options: .curveEaseIn) {
+            self.layoutIfNeeded()
+        }
+        NSLayoutDeactivate([thirdDescriptionLeadingAnchor])
+        self.layoutIfNeeded()
+        NSLayoutActivate([thirdDescriptionCenterXAnchor])
+        UIView.animate(withDuration: 0.8, delay: 0.6, options: .curveEaseIn) {
+            self.layoutIfNeeded()
+        }
+        NSLayoutDeactivate([fourthDescriptionLeadingAnchor])
+        self.layoutIfNeeded()
+        NSLayoutActivate([fourthDescriptionCenterXAnchor])
+        UIView.animate(withDuration: 0.8, delay: 0.7, options: .curveEaseIn) {
+            self.layoutIfNeeded()
         }
     }
     
@@ -352,7 +481,5 @@ class ItemSelectionView: UIView {
         fourthDescriptionLeadingAnchor?.isActive = true
         fourthDescriptionCenterXAnchor = fourthDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         fourthDescriptionCenterXAnchor?.isActive = false
-        
     }
-    
 }
