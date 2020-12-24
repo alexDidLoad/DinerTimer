@@ -218,8 +218,8 @@
 				11A4BE042583E36700C09D7A /* CustomItemButton.swift */,
 				11A4BE5F2589507600C09D7A /* DescriptionButton.swift */,
 				11A4BE31258547AC00C09D7A /* ProgressBarBubble.swift */,
-				11A4BE6825895FD400C09D7A /* QuickTipView.swift */,
 				11A4BE2E25853CAA00C09D7A /* FoodProgressBar.swift */,
+				11A4BE6825895FD400C09D7A /* QuickTipView.swift */,
 			);
 			path = CustomUIComponents;
 			sourceTree = "<group>";

@@ -21,6 +21,18 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    private let maleBakerImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "maleBaker")
+        return iv
+    }()
+    
+    private let femaleBakerImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "femaleBaker")
+        return iv
+    }()
+    
     let progressBar = FoodProgressBar()
     
     //MARK: - Properties
@@ -32,15 +44,29 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
     }
     //MARK: - Helpers
+    
+    private func animateImageUpwards() {
+        let moveUp = CGAffineTransform(translationX: 0, y: -245)
+        
+        UIView.animate(withDuration: 1.0, delay: 0.8, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseIn) {
+            self.maleBakerImage.transform = moveUp
+            self.femaleBakerImage.transform = moveUp
+        } completion: { _ in
+            UIView.animate(withDuration: 0.9, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseIn) {
+                self.maleBakerImage.transform = .identity
+                self.femaleBakerImage.transform = .identity
+            }
+        }
+    }
     
     private func configureUI() {
         view.backgroundColor = .white
         configureNavBar(withTitle: "Diner Timer", prefersLargeTitle: false)
         
         let backgroundImageView = UIImageView()
+        backgroundImageView.layer.zPosition = -2
         backgroundImageView.setDimensions(height: view.frame.height, width: view.frame.width)
         drawCheckerBoard(imageView: backgroundImageView)
         view.addSubview(backgroundImageView)
@@ -54,6 +80,19 @@ class MainViewController: UIViewController {
         progressBar.anchor(leading: view.leadingAnchor,
                            bottom: view.bottomAnchor,
                            trailing: view.trailingAnchor)
+        
+        maleBakerImage.layer.zPosition = -1
+        view.addSubview(maleBakerImage)
+        maleBakerImage.anchor(top: progressBar.topAnchor,
+                              leading: view.leadingAnchor,
+                              paddingLeading: -30)
+        
+        femaleBakerImage.layer.zPosition = -1
+        view.addSubview(femaleBakerImage)
+        femaleBakerImage.anchor(top: progressBar.topAnchor,
+                                trailing: view.trailingAnchor,
+                                paddingTrailing: -30)
+        
         
         view.addSubview(optionsLabel)
         optionsLabel.centerY(inView: progressBar, constant: -15)
@@ -74,6 +113,7 @@ class MainViewController: UIViewController {
 extension MainViewController: ItemSelectionViewDelegate {
     
     func changeThirdProgressBubble() {
+        animateImageUpwards()
         progressBar.thirdBubble.bubbleImageView.image = UIImage(named: "cooking")
     }
     
@@ -87,6 +127,12 @@ extension MainViewController: ItemSelectionViewDelegate {
     
     func didSelect() {
         let timerVC = TimerViewController()
+        let transition: CATransition = CATransition()
+        transition.duration = 0.7
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromRight
+        navigationController?.view.layer.add(transition, forKey: kCATransition)
         navigationController?.pushViewController(timerVC, animated: true)
     }
     

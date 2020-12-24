@@ -115,10 +115,24 @@ extension UIView {
                     optionalView.transform = .identity
                 }
             }
-            delay += 0.1
+            delay += 0.08
         }
         if completion != nil {
             completion!()
+        }
+    }
+    
+    /// Button released animation
+    func liftUp() {
+        UIView.animate(withDuration: 0.09) {
+            self.transform = CGAffineTransform.identity
+        }
+    }
+    
+    /// Button pressed down animation
+    func pushDown() {
+        UIView.animate(withDuration: 0.09) {
+            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         }
     }
     

@@ -375,7 +375,7 @@ class ItemSelectionView: UIView {
     private func animateOutDescriptions() {
         fade(out: firstDescription, [secondDescription, thirdDescription, fourthDescription])
         delegate?.changeThirdProgressBubble()
-        perform(#selector(pushToTimerVC), with: nil, afterDelay: 1.5)
+        perform(#selector(pushToTimerVC), with: nil, afterDelay: 2.2)
     }
     
     private func animateInOptions(topFirst: Bool) {

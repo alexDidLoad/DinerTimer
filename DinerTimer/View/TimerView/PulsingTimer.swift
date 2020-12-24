@@ -15,10 +15,11 @@ class PulsingTimer: UIView {
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont(name: "SFProText-Medium", size: 56)
-        label.setDimensions(height: 222, width: 222)
+        label.setDimensions(height: 212, width: 212)
         label.backgroundColor = #colorLiteral(red: 0.9881569743, green: 0.9569149613, blue: 0.8940123916, alpha: 1)
-        label.layer.cornerRadius = 222 / 2
+        label.layer.cornerRadius = 212 / 2
         label.layer.masksToBounds = true
+        label.layer.zPosition = 2
         return label
     }()
     
@@ -40,7 +41,7 @@ class PulsingTimer: UIView {
     public lazy var progressLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.strokeColor = #colorLiteral(red: 0.8157042265, green: 0.203938216, blue: 0.3097853363, alpha: 1).withAlphaComponent(0.8).cgColor
-        layer.lineWidth = 35
+        layer.lineWidth = 25
         layer.lineCap = .round
         layer.fillColor = UIColor.clear.cgColor
         layer.zPosition = 1
@@ -50,7 +51,7 @@ class PulsingTimer: UIView {
     private lazy var trackLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.strokeColor = #colorLiteral(red: 0.9450542331, green: 0.7765093446, blue: 0.4783833623, alpha: 1).cgColor
-        layer.lineWidth = 35
+        layer.lineWidth = 25
         layer.lineCap = .round
         layer.fillColor = UIColor.clear.cgColor
         layer.zPosition = 0
@@ -62,7 +63,7 @@ class PulsingTimer: UIView {
         layer.strokeColor = UIColor.clear.cgColor
         layer.lineWidth = 15
         layer.lineCap = .round
-        layer.fillColor = UIColor.clear.cgColor
+        layer.fillColor = #colorLiteral(red: 0.955174649, green: 0.6797576959, blue: 0.7615514308, alpha: 1).withAlphaComponent(0.6).cgColor
         layer.zPosition = -1
         return layer
     }()
@@ -87,7 +88,6 @@ class PulsingTimer: UIView {
         animation.repeatCount = .infinity
         return animation
     }()
-    
     //MARK: - Properties
     
     public var timer = Timer()
@@ -111,8 +111,6 @@ class PulsingTimer: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     //MARK: - Helpers
     
     public func startTime() {
@@ -203,5 +201,4 @@ class PulsingTimer: UIView {
         guard let finishedTimeLabelText = finishedTimeLabel.text else { return ""}
         return finishedTimeLabelText
     }
-    
 }
