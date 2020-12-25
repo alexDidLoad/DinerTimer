@@ -139,45 +139,45 @@ class ItemSelectionView: UIView {
     }
     //MARK: - Selectors
     
-    @objc private func handleEggPress() {
+    @objc private func handleEggPress(sender: UIButton) {
         delegate?.changeProgressBarItem(withItem: egg)
         breakfastItem.type = egg
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "boil")!, text: "Boil / Poach")
-        
+        sender.liftUp()
         fade(out: topStack, [bottomStack]) {
             self.animateInOptions(topFirst: true)
         }
     }
     
-    @objc private func handleBaconPress() {
+    @objc private func handleBaconPress(sender: UIButton) {
         delegate?.changeProgressBarItem(withItem: bacon)
         breakfastItem.type = bacon
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
-        
+        sender.liftUp()
         fade(out: topStack, [bottomStack]) {
             self.animateInOptions(topFirst: true)
         }
     }
     
-    @objc private func handlePancakesPress() {
+    @objc private func handlePancakesPress(sender: UIButton) {
         delegate?.changeProgressBarItem(withItem: pancake)
         breakfastItem.type = pancake
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
-        
+        sender.liftUp()
         fade(out: bottomStack, [topStack]) {
             self.animateInOptions(topFirst: false)
         }
     }
     
-    @objc private func handlePotatoPress() {
+    @objc private func handlePotatoPress(sender: UIButton) {
         delegate?.changeProgressBarItem(withItem: hashbrown)
         breakfastItem.type = hashbrown
         topOptionButton.updateCookingOptions(withImage: UIImage(named: "pan")!, text: "Pan fried")
         bottomOptionButton.updateCookingOptions(withImage: UIImage(named: "oven")!, text: "Baked")
-        
+        sender.liftUp()
         fade(out: bottomStack, [topStack]) {
             self.animateInOptions(topFirst: false)
         }
@@ -478,11 +478,8 @@ class ItemSelectionView: UIView {
         topStack.axis = .horizontal
         topStack.distribution = .equalSpacing
         addSubview(topStack)
-        topStack.anchor(top: self.topAnchor,
-                        leading: self.leadingAnchor,
-                        trailing: self.trailingAnchor,
-                        paddingTop: 44,
-                        paddingLeading: 16,
+        topStack.centerY(inView: self, leadingAnchor: self.leadingAnchor, paddingLeading: 16, constant: -85)
+        topStack.anchor(trailing: self.trailingAnchor,
                         paddingTrailing: 16)
         
         bottomStack = UIStackView(arrangedSubviews: [pancakesButton, potatoButton])
@@ -495,8 +492,7 @@ class ItemSelectionView: UIView {
                            paddingTop: 21)
         
         addSubview(topOptionButton)
-        topOptionButton.anchor(top: self.topAnchor,
-                               paddingTop: 44)
+        topOptionButton.centerY(inView: self, constant: -85)
         topOptionLeadingAnchor = topOptionButton.leadingAnchor.constraint(equalTo: self.trailingAnchor)
         topOptionLeadingAnchor?.isActive = true
         topOptionCenterXAnchor = topOptionButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
@@ -511,8 +507,7 @@ class ItemSelectionView: UIView {
         bottomOptionCenterXAnchor?.isActive = false
         
         addSubview(firstDescription)
-        firstDescription.anchor(top: self.topAnchor,
-                                paddingTop: 32)
+        firstDescription.centerY(inView: self, constant: -135)
         firstDescriptionLeadingAnchor = firstDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
         firstDescriptionLeadingAnchor?.isActive = true
         firstDescriptionCenterXAnchor = firstDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
@@ -520,7 +515,7 @@ class ItemSelectionView: UIView {
         
         addSubview(secondDescription)
         secondDescription.anchor(top: firstDescription.bottomAnchor,
-                                 paddingTop: 22)
+                                 paddingTop: 18)
         secondDescriptionLeadingAnchor = secondDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
         secondDescriptionLeadingAnchor?.isActive = true
         secondDescriptionCenterXAnchor = secondDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
@@ -528,7 +523,7 @@ class ItemSelectionView: UIView {
         
         addSubview(thirdDescription)
         thirdDescription.anchor(top: secondDescription.bottomAnchor,
-                                paddingTop: 22)
+                                paddingTop: 18)
         thirdDescriptionLeadingAnchor = thirdDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
         thirdDescriptionLeadingAnchor?.isActive = true
         thirdDescriptionCenterXAnchor = thirdDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)
@@ -536,7 +531,7 @@ class ItemSelectionView: UIView {
         
         addSubview(fourthDescription)
         fourthDescription.anchor(top: thirdDescription.bottomAnchor,
-                                 paddingTop: 22)
+                                 paddingTop: 18)
         fourthDescriptionLeadingAnchor = fourthDescription.leadingAnchor.constraint(equalTo: self.trailingAnchor)
         fourthDescriptionLeadingAnchor?.isActive = true
         fourthDescriptionCenterXAnchor = fourthDescription.centerXAnchor.constraint(equalTo: self.centerXAnchor)

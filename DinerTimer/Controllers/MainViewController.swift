@@ -105,13 +105,21 @@ class MainViewController: UIViewController {
         backgroundImageView.centerX(inView: view)
         backgroundImageView.centerY(inView: view)
         
+        let itemSelectionView = ItemSelectionView()
+        itemSelectionView.delegate = self
+        view.addSubview(itemSelectionView)
+        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                                 bottom: view.centerYAnchor,
+                                 paddingBottom: -140)
+        itemSelectionView.centerX(inView: view, leadingAnchor: view.leadingAnchor)
+       
         //bottomView
-        progressBar.setHeight(height: 265)
         view.addSubview(progressBar)
-        progressBar.centerX(inView: view)
-        progressBar.anchor(leading: view.leadingAnchor,
-                           bottom: view.bottomAnchor,
-                           trailing: view.trailingAnchor)
+        progressBar.anchor(top: itemSelectionView.bottomAnchor,
+            leading: view.leadingAnchor,
+            bottom: view.bottomAnchor,
+            trailing: view.trailingAnchor,
+            paddingTop: 15)
         
         maleBakerImage.layer.zPosition = -1
         view.addSubview(maleBakerImage)
@@ -127,16 +135,10 @@ class MainViewController: UIViewController {
         
         
         view.addSubview(optionsLabel)
-        optionsLabel.centerY(inView: progressBar, constant: -15)
         optionsLabel.anchor(leading: progressBar.leadingAnchor,
-                            trailing: progressBar.trailingAnchor)
-        
-        let itemSelectionView = ItemSelectionView()
-        itemSelectionView.delegate = self
-        view.addSubview(itemSelectionView)
-        itemSelectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                                 bottom: progressBar.topAnchor)
-        itemSelectionView.centerX(inView: view, leadingAnchor: view.leadingAnchor)
+                            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                            trailing: progressBar.trailingAnchor,
+                            paddingBottom: 60)
     }
 }
 

@@ -19,10 +19,11 @@ class BottomTimerView: UIView {
     
     //MARK: - UIComponents
     
-    private let itemLabel: UILabel = {
+    private let temperatureLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "\(breakfastItem.type.capitalized) | \(breakfastItem.method.capitalized)"
+        label.font = UIFont(name: "SFProText-Heavy", size: 16)
+        label.textColor = .black
         return label
     }()
     
@@ -64,6 +65,7 @@ class BottomTimerView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("RESET", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "SFProText-Medium", size: 13)
         button.setDimensions(height: 14, width: 49)
         button.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
         return button
@@ -73,6 +75,7 @@ class BottomTimerView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("CANCEL", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "SFProText-Medium", size: 13)
         button.setDimensions(height: 14, width: 59)
         button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         return button
@@ -88,6 +91,7 @@ class BottomTimerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        updateTemperatureLabel()
         configureUI()
     }
     
@@ -124,7 +128,45 @@ class BottomTimerView: UIView {
         button.pushDown()
     }
     //MARK: - Helpers
-
+    
+    private func updateTemperatureLabel() {
+        switch breakfastItem.type {
+        case egg:
+            switch breakfastItem.method {
+            case pan:
+                switch breakfastItem.doneness {
+                case sunnyside:
+                    temperatureLabel.text = "Medium Heat"
+                default:
+                    temperatureLabel.text = "Medium High Heat"
+                }
+            default:
+                temperatureLabel.text = "High Heat"
+            }
+        case bacon:
+            switch breakfastItem.method {
+            case pan:
+                temperatureLabel.text = "Medium High Heat"
+            default:
+                temperatureLabel.text = "400℉"
+            }
+        case pancake:
+            switch breakfastItem.method {
+            case pan:
+                temperatureLabel.text = "Medium Heat"
+            default:
+                temperatureLabel.text = "425℉"
+            }
+        default:
+            switch breakfastItem.method {
+            case pan:
+                temperatureLabel.text = "Medium High Heat"
+            default:
+                temperatureLabel.text = "400℉"
+            }
+        }
+    }
+    
     private func configureUI() {
         self.backgroundColor = #colorLiteral(red: 0.9293814301, green: 0.6980805993, blue: 0.7606970668, alpha: 1)
         
@@ -137,21 +179,21 @@ class BottomTimerView: UIView {
         pauseButton.centerX(inView: self)
         pauseButton.centerY(inView: self)
         
-        addSubview(itemLabel)
-        itemLabel.anchor(top: self.topAnchor,
+        addSubview(temperatureLabel)
+        temperatureLabel.anchor(top: self.topAnchor,
                          bottom: playButton.topAnchor)
-        itemLabel.centerX(inView: self)
+        temperatureLabel.centerX(inView: self)
         
         addSubview(resetButton)
         resetButton.anchor(bottom: self.safeAreaLayoutGuide.bottomAnchor,
                            trailing: self.trailingAnchor,
-                           paddingBottom: 10,
+                           paddingBottom: 15,
                            paddingTrailing: 24)
         
         addSubview(cancelButton)
         cancelButton.anchor(leading: self.leadingAnchor,
                             bottom: self.safeAreaLayoutGuide.bottomAnchor,
                             paddingLeading: 24,
-                            paddingBottom: 10)
+                            paddingBottom: 15)
     }
 }

@@ -14,6 +14,7 @@ class CustomItemButton: UIButton {
     private let labelView: UILabel = {
         let label = UILabel()
         label.text = "Test"
+        label.textColor = .black
         label.textAlignment = .center
         label.backgroundColor = #colorLiteral(red: 0.9627792239, green: 0.9252207875, blue: 0.8597199321, alpha: 1)
         label.setHeight(height: 35)

@@ -142,6 +142,7 @@ class PulsingTimer: UIView {
     }
     
     private func configureUI() {
+        
         let startAngle = 1.5 * CGFloat.pi
         let center = self.center
         let pulsingPath = UIBezierPath(arcCenter: center, radius: 125, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
@@ -155,6 +156,7 @@ class PulsingTimer: UIView {
         pulsingLayer.position = center
         pulsingLayer.frame = bounds
         layer.addSublayer(pulsingLayer)
+        
         
         timeLeft = calculator.calculateCookTime(for: breakfastItem.type, method: breakfastItem.method, doneness: breakfastItem.doneness)
         timerLabel.text = timeLeft.time

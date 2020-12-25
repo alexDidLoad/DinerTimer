@@ -43,14 +43,56 @@ class QuickTipView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        updateTip()
         configureUI()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Helpers
+    
+    private func updateTip() {
+        switch breakfastItem.type {
+        
+        case egg:
+            switch breakfastItem.method {
+            case pan:
+                switch breakfastItem.doneness {
+                case sunnyside:
+                    bodyLabel.text = "Continue cooking until whites are set"
+                default:
+                    bodyLabel.text = "Flip as soon as the bottom is set"
+                }
+            default:
+                bodyLabel.text = "Plunge the eggs in ice cold water as soon as it's done"
+            }
+            
+        case bacon:
+            switch breakfastItem.method {
+            case pan:
+                bodyLabel.text = "Cook the bacon starting from a cold pan"
+            default:
+                bodyLabel.text = "Maintain 1/2 inch of space between each slice"
+            }
+            
+        case pancake:
+            switch breakfastItem.method {
+            case pan:
+                bodyLabel.text = "You can flip the pancake when bubbles begin to appear!"
+            default:
+                bodyLabel.text = "Rotate the pan halfway to cook evenly"
+            }
+            
+        default:
+            switch breakfastItem.method {
+            case pan:
+                bodyLabel.text = "Add just enough oil to cover the bottom of the pan"
+            default:
+                bodyLabel.text = "Rotate the pan halfway to cook evenly"
+            }
+        }
+    }
     
     private func configureUI() {
         

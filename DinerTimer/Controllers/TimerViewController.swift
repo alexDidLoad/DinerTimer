@@ -141,17 +141,20 @@ class TimerViewController: UIViewController {
                             paddingTop: 33)
         quickTipView.centerX(inView: view)
         
+        
         view.addSubview(timerView)
+        timerView.backgroundColor = .green
         timerView.centerX(inView: view)
         timerView.centerY(inView: view)
         
         let bottomView = BottomTimerView()
         bottomView.delegate = self
         view.addSubview(bottomView)
-        bottomView.setHeight(height: 217)
-        bottomView.anchor(leading: view.leadingAnchor,
+        bottomView.anchor(top: view.centerYAnchor,
+                          leading: view.leadingAnchor,
                           bottom: view.bottomAnchor,
-                          trailing: view.trailingAnchor)
+                          trailing: view.trailingAnchor,
+                          paddingTop: 175)
     }
 }
 //MARK: - BottomTimerViewDelegate
