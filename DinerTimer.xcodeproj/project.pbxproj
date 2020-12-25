@@ -11,8 +11,9 @@
 		110E4741258FEFB60025BDA7 /* BottomTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E4740258FEFB60025BDA7 /* BottomTimerView.swift */; };
 		110E4744258FF7270025BDA7 /* PulsingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E4743258FF7270025BDA7 /* PulsingTimer.swift */; };
 		110E4747258FF8450025BDA7 /* CookTimerCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E4746258FF8450025BDA7 /* CookTimerCalculator.swift */; };
-		110E474A258FFB320025BDA7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E4749258FFB320025BDA7 /* Global.swift */; };
+		110E474A258FFB320025BDA7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E4749258FFB320025BDA7 /* Constants.swift */; };
 		110E474D258FFB6E0025BDA7 /* BreakfastItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110E474C258FFB6E0025BDA7 /* BreakfastItem.swift */; };
+		1129ED1525954F340031D015 /* marimba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1129ED1425954F340031D015 /* marimba.mp3 */; };
 		11A4BDE72583E08C00C09D7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDE62583E08C00C09D7A /* AppDelegate.swift */; };
 		11A4BDE92583E08C00C09D7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDE82583E08C00C09D7A /* SceneDelegate.swift */; };
 		11A4BDEB2583E08C00C09D7A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A4BDEA2583E08C00C09D7A /* MainViewController.swift */; };
@@ -51,8 +52,9 @@
 		110E4740258FEFB60025BDA7 /* BottomTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTimerView.swift; sourceTree = "<group>"; };
 		110E4743258FF7270025BDA7 /* PulsingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsingTimer.swift; sourceTree = "<group>"; };
 		110E4746258FF8450025BDA7 /* CookTimerCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookTimerCalculator.swift; sourceTree = "<group>"; };
-		110E4749258FFB320025BDA7 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		110E4749258FFB320025BDA7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		110E474C258FFB6E0025BDA7 /* BreakfastItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakfastItem.swift; sourceTree = "<group>"; };
+		1129ED1425954F340031D015 /* marimba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = marimba.mp3; sourceTree = "<group>"; };
 		11A4BDE32583E08C00C09D7A /* DinerTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinerTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A4BDE62583E08C00C09D7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A4BDE82583E08C00C09D7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,7 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				11A4BE002583E24800C09D7A /* Extensions.swift */,
-				110E4749258FFB320025BDA7 /* Global.swift */,
+				110E4749258FFB320025BDA7 /* Constants.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -207,6 +209,7 @@
 				11A4BE0E2583E7A900C09D7A /* SF-Pro-Text-ThinItalic.otf */,
 				11A4BE152583E7A900C09D7A /* SF-Pro-Text-Ultralight.otf */,
 				11A4BE0F2583E7A900C09D7A /* SF-Pro-Text-UltralightItalic.otf */,
+				1129ED1425954F340031D015 /* marimba.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				11A4BE242583E8A800C09D7A /* SF-Pro-Text-Thin.otf in Resources */,
 				11A4BE272583E8A800C09D7A /* SF-Pro-Text-HeavyItalic.otf in Resources */,
 				11A4BDF02583E09700C09D7A /* Assets.xcassets in Resources */,
+				1129ED1525954F340031D015 /* marimba.mp3 in Resources */,
 				11A4BE212583E8A800C09D7A /* SF-Pro-Text-Medium.otf in Resources */,
 				11A4BE262583E8A800C09D7A /* SF-Pro-Text-BoldItalic.otf in Resources */,
 				11A4BE2A2583E8A800C09D7A /* SF-Pro-Text-Ultralight.otf in Resources */,
@@ -320,7 +324,7 @@
 				110E474D258FFB6E0025BDA7 /* BreakfastItem.swift in Sources */,
 				11A4BDE72583E08C00C09D7A /* AppDelegate.swift in Sources */,
 				11A4BE602589507600C09D7A /* DescriptionButton.swift in Sources */,
-				110E474A258FFB320025BDA7 /* Global.swift in Sources */,
+				110E474A258FFB320025BDA7 /* Constants.swift in Sources */,
 				11A4BE6525895C8600C09D7A /* PaddingLabel.swift in Sources */,
 				11A4BDE92583E08C00C09D7A /* SceneDelegate.swift in Sources */,
 				110E4741258FEFB60025BDA7 /* BottomTimerView.swift in Sources */,

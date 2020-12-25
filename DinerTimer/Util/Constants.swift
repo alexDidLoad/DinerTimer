@@ -7,7 +7,16 @@
 
 import UIKit
 
+//MARK: - Notifications
+
+let userNotificationCenter = UNUserNotificationCenter.current()
+let notificationCenter = NotificationCenter.default
+
+let notifyResetItems = "resetItems"
+
+//MARK: - Breakfast Item Constants
 var breakfastItem = BreakfastItem()
+
 
 let egg = "egg"
 let bacon = "bacon"
@@ -33,7 +42,10 @@ let pan = "pan"
 let boil = "boil"
 let oven = "oven"
 
+//MARK: - Breakfast Item Images
+
 let eggImage = UIImage(named: egg)
 let baconImage = UIImage(named: bacon)
 let pancakeImage = UIImage(named: pancake)
 let hashbrownImage = UIImage(named: hashbrown)
+

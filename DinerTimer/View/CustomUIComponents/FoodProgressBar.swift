@@ -55,12 +55,6 @@ class FoodProgressBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Selectors
-    
-    @objc private func handleFirstPressed() {
-        print("First Pressed")
-    }
-    
     //MARK: - Helpers
     
     func configureUI() {

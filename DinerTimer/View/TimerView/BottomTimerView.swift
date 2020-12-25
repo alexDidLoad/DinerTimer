@@ -22,7 +22,7 @@ class BottomTimerView: UIView {
     private let itemLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "test"
+        label.text = "\(breakfastItem.type.capitalized) | \(breakfastItem.method.capitalized)"
         return label
     }()
     
@@ -62,7 +62,7 @@ class BottomTimerView: UIView {
     
     private let resetButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Reset", for: .normal)
+        button.setTitle("RESET", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 14, width: 49)
         button.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
@@ -71,7 +71,7 @@ class BottomTimerView: UIView {
     
     private let cancelButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("CANCEL", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 14, width: 59)
         button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
@@ -100,7 +100,6 @@ class BottomTimerView: UIView {
         delegate?.handlePlay()
         playButton.isHidden = true
         pauseButton.isHidden = false
-        buttonSoundEffect()
         button.liftUp()
     }
     
@@ -108,7 +107,6 @@ class BottomTimerView: UIView {
         delegate?.handlePause()
         playButton.isHidden = false
         pauseButton.isHidden = true
-        buttonSoundEffect()
         button.liftUp()
     }
     
@@ -126,17 +124,7 @@ class BottomTimerView: UIView {
         button.pushDown()
     }
     //MARK: - Helpers
-    
-    private func buttonSoundEffect() {
-        guard let url = Bundle.main.url(forResource: "buttonTock", withExtension: ".mp3") else { return }
-        do {
-            soundEffect = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            soundEffect.play()
-        } catch {
-            print("DEBUG: Failed to play sound effect: \(error.localizedDescription)")
-        }
-    }
-    
+
     private func configureUI() {
         self.backgroundColor = #colorLiteral(red: 0.9293814301, green: 0.6980805993, blue: 0.7606970668, alpha: 1)
         
@@ -157,11 +145,13 @@ class BottomTimerView: UIView {
         addSubview(resetButton)
         resetButton.anchor(bottom: self.safeAreaLayoutGuide.bottomAnchor,
                            trailing: self.trailingAnchor,
+                           paddingBottom: 10,
                            paddingTrailing: 24)
         
         addSubview(cancelButton)
         cancelButton.anchor(leading: self.leadingAnchor,
                             bottom: self.safeAreaLayoutGuide.bottomAnchor,
-                            paddingLeading: 24)
+                            paddingLeading: 24,
+                            paddingBottom: 10)
     }
 }

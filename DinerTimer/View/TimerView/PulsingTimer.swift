@@ -63,7 +63,7 @@ class PulsingTimer: UIView {
         layer.strokeColor = UIColor.clear.cgColor
         layer.lineWidth = 15
         layer.lineCap = .round
-        layer.fillColor = #colorLiteral(red: 0.955174649, green: 0.6797576959, blue: 0.7615514308, alpha: 1).withAlphaComponent(0.6).cgColor
+        layer.fillColor = #colorLiteral(red: 0.8157042265, green: 0.203938216, blue: 0.3097853363, alpha: 1).withAlphaComponent(0.5).cgColor
         layer.zPosition = -1
         return layer
     }()
@@ -81,7 +81,7 @@ class PulsingTimer: UIView {
     public lazy var pulsingAnimation: CABasicAnimation = {
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.fromValue = 1
-        animation.toValue = 1.2
+        animation.toValue = 1.25
         animation.duration = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.autoreverses = true
@@ -92,7 +92,6 @@ class PulsingTimer: UIView {
     
     public var timer = Timer()
     public var timeLeft: TimeInterval = 0
-    public var cookTime: Double! = 0
     public var savedTime: Double!
     
     public var date: Date?
@@ -157,15 +156,13 @@ class PulsingTimer: UIView {
         pulsingLayer.frame = bounds
         layer.addSublayer(pulsingLayer)
         
-        
-        cookTime = calculator.calculateCookTime(for: breakfastItem.type, method: breakfastItem.method, doneness: breakfastItem.doneness)
-        timeLeft = cookTime
+        timeLeft = calculator.calculateCookTime(for: breakfastItem.type, method: breakfastItem.method, doneness: breakfastItem.doneness)
         timerLabel.text = timeLeft.time
         addSubview(timerLabel)
         timerLabel.centerX(inView: self)
         timerLabel.centerY(inView: self)
         
-        finishedTimeLabel.text = "hh:mm"
+        finishedTimeLabel.text = calculateEndTime()
         timerLabel.addSubview(finishedTimeLabel)
         finishedTimeLabel.centerX(inView: timerLabel, constant: 4)
         finishedTimeLabel.centerY(inView: timerLabel, constant: 50)
@@ -182,8 +179,11 @@ class PulsingTimer: UIView {
         let date = Date()
         var hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
-        let calculatedMinutes = minute + Int(cookTime / 60)
+        let calculatedMinutes = minute + Int(timeLeft / 60)
         
+        if hour > 12 {
+            hour -= 12
+        }
         if calculatedMinutes > 60 {
             hour += 1
             if calculatedMinutes % 60 > 10 {

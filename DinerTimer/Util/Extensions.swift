@@ -90,7 +90,6 @@ extension UIView {
     func NSLayoutDeactivate(_ objects:[NSLayoutConstraint]) {
         objects.forEach({$0.isActive = false})
     }
-    
     //MARK: - Animations
     
     func fade(out view: UIView, _ optionalViews: [UIView]? = nil, completion: (() -> Void)? = nil) {
@@ -105,7 +104,6 @@ extension UIView {
                 view.transform = .identity
             }
         }
-        
         for optionalView in optionalViews {
             UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseInOut) {
                 optionalView.transform = CGAffineTransform(translationX: -350, y: 0)
@@ -136,9 +134,11 @@ extension UIView {
         }
     }
     
-    
+    ///Takes in an array of UIViews and sets its alpha property
+    func setAlpha(of views: [UIView], withAlphaOf alpha: CGFloat) {
+        views.forEach({$0.alpha = alpha})
+    }
 }
-
 //MARK: - UI Configurations
 
 extension UIViewController {
@@ -148,7 +148,7 @@ extension UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black,
-                                               .font: UIFont(name: "SFProText-Regular", size: 32)!]
+                                         .font: UIFont(name: "SFProText-Medium", size: 32)!]
         appearance.backgroundColor = #colorLiteral(red: 0.9335944057, green: 0.6621651053, blue: 0.7384092212, alpha: 1)
         
         //Sets all of the navigation bar's attributes to our constant 'appearance'

@@ -21,24 +21,28 @@ class ItemSelectionView: UIView {
     //item buttons
     private let eggButton: CustomItemButton = {
         let button = CustomItemButton(withImage: eggImage, text: "Eggs")
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleEggPress), for: .touchUpInside)
         return button
     }()
     
     private let baconButton: CustomItemButton = {
         let button = CustomItemButton(withImage: baconImage, text: "Bacon")
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleBaconPress), for: .touchUpInside)
         return button
     }()
     
     private let pancakesButton: CustomItemButton = {
         let button = CustomItemButton(withImage: pancakeImage, text: "Pancakes")
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handlePancakesPress), for: .touchUpInside)
         return button
     }()
     
     private let potatoButton: CustomItemButton = {
         let button = CustomItemButton(withImage: hashbrownImage, text: "Hashbrowns")
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handlePotatoPress), for: .touchUpInside)
         return button
     }()
@@ -46,12 +50,14 @@ class ItemSelectionView: UIView {
     //method option buttons
     private let topOptionButton: CustomItemButton = {
         let button = CustomItemButton()
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleTopPress), for: .touchUpInside)
         return button
     }()
     
     private let bottomOptionButton: CustomItemButton = {
         let button = CustomItemButton()
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleBottomPress), for: .touchUpInside)
         return button
     }()
@@ -59,24 +65,28 @@ class ItemSelectionView: UIView {
     //description buttons
     private let firstDescription: DescriptionButton = {
         let button = DescriptionButton()
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleFirstPressed), for: .touchUpInside)
         return button
     }()
     
     private let secondDescription: DescriptionButton = {
         let button = DescriptionButton()
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleSecondPressed), for: .touchUpInside)
         return button
     }()
     
     private let thirdDescription: DescriptionButton = {
         let button = DescriptionButton()
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleThirdPressed), for: .touchUpInside)
         return button
     }()
     
     private let fourthDescription: DescriptionButton = {
         let button = DescriptionButton()
+        button.addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
         button.addTarget(self, action: #selector(handleFourthPressed), for: .touchUpInside)
         return button
     }()
@@ -117,12 +127,16 @@ class ItemSelectionView: UIView {
         super.init(frame: .zero)
         
         configureUI()
+        addObservers()
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     //MARK: - Selectors
     
     @objc private func handleEggPress() {
@@ -200,26 +214,42 @@ class ItemSelectionView: UIView {
     
     @objc private func handleFirstPressed() {
         firstPressed = true
+        secondPressed = false
+        thirdPressed = false
+        fourthPressed = false
         updateDoneness()
         animateOutDescriptions()
     }
     
     @objc private func handleSecondPressed() {
+        firstPressed = false
         secondPressed = true
+        thirdPressed = false
+        fourthPressed = false
         updateDoneness()
         animateOutDescriptions()
     }
     
     @objc private func handleThirdPressed() {
+        firstPressed = false
+        secondPressed = false
         thirdPressed = true
+        fourthPressed = false
         updateDoneness()
         animateOutDescriptions()
     }
     
     @objc private func handleFourthPressed() {
+        firstPressed = false
+        secondPressed = false
+        thirdPressed = false
         fourthPressed = true
         updateDoneness()
         animateOutDescriptions()
+    }
+    
+    @objc private func handleTouchDown(button: UIButton) {
+        button.pushDown()
     }
     
     @objc private func pushToTimerVC() {
@@ -227,6 +257,21 @@ class ItemSelectionView: UIView {
     }
     
     //MARK: - Helpers
+    
+    private func addObservers() {
+        //reset items
+        let reset = Notification.Name(rawValue: notifyResetItems)
+        notificationCenter.addObserver(self, selector: #selector(resetButtons), name: reset, object: nil)
+    }
+    
+    @objc private func resetButtons() {
+        fourthDescription.isHidden = false
+        setAlpha(of: [topStack, bottomStack, topOptionButton, bottomOptionButton, firstDescription, secondDescription, thirdDescription, fourthDescription], withAlphaOf: 1)
+        
+        NSLayoutDeactivate([topOptionCenterXAnchor, bottomOptionCenterXAnchor, firstDescriptionCenterXAnchor, secondDescriptionCenterXAnchor, thirdDescriptionCenterXAnchor, fourthDescriptionCenterXAnchor])
+        
+        NSLayoutActivate([topOptionLeadingAnchor, bottomOptionLeadingAnchor, firstDescriptionLeadingAnchor, secondDescriptionLeadingAnchor, thirdDescriptionLeadingAnchor, fourthDescriptionLeadingAnchor])
+    }
     
     private func updateDoneness() {
         if firstPressed {
@@ -429,7 +474,6 @@ class ItemSelectionView: UIView {
     }
     
     private func configureUI() {
-        
         topStack = UIStackView(arrangedSubviews: [eggButton, baconButton])
         topStack.axis = .horizontal
         topStack.distribution = .equalSpacing
@@ -437,7 +481,7 @@ class ItemSelectionView: UIView {
         topStack.anchor(top: self.topAnchor,
                         leading: self.leadingAnchor,
                         trailing: self.trailingAnchor,
-                        paddingTop: 66,
+                        paddingTop: 44,
                         paddingLeading: 16,
                         paddingTrailing: 16)
         
@@ -452,7 +496,7 @@ class ItemSelectionView: UIView {
         
         addSubview(topOptionButton)
         topOptionButton.anchor(top: self.topAnchor,
-                               paddingTop: 66)
+                               paddingTop: 44)
         topOptionLeadingAnchor = topOptionButton.leadingAnchor.constraint(equalTo: self.trailingAnchor)
         topOptionLeadingAnchor?.isActive = true
         topOptionCenterXAnchor = topOptionButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)

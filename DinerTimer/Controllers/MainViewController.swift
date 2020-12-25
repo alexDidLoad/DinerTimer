@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class MainViewController: UIViewController {
     
@@ -15,9 +16,9 @@ class MainViewController: UIViewController {
         let label = UILabel()
         label.text = "Choose your breakfast item"
         label.textAlignment = .center
-        label.font = UIFont(name: "SFProText-Regular", size: 18)
+        label.font = UIFont(name: "SFProText-Medium", size: 22)
         label.textColor = #colorLiteral(red: 0.1545568705, green: 0.117007874, blue: 0.04884755611, alpha: 1)
-        label.setHeight(height: 21)
+        label.setHeight(height: 28)
         return label
     }()
     
@@ -35,21 +36,52 @@ class MainViewController: UIViewController {
     
     let progressBar = FoodProgressBar()
     
-    //MARK: - Properties
-    
-    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
+        registerForNotification()
+        addObservers()
     }
+    
+    deinit {
+        notificationCenter.removeObserver(self)
+    }
+    //MARK: - UserNotification
+    
+    private func registerForNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if let error = error {
+                print("DEBUG: Error in requesting authorization: \(error.localizedDescription)")
+            }
+            if granted {
+                print("DEBUG: Notification Authorization was granted")
+            } else {
+                print("DEBUG: Notification Authorization was denied")
+            }
+        }
+    }
+    
+    //MARK: - Selectors
+    
+    @objc private func resetProgressBubble() {
+        progressBar.firstBubble.bubbleImageView.image = nil
+        progressBar.secondBubble.bubbleImageView.image = nil
+        progressBar.thirdBubble.bubbleImageView.image = nil
+    }
+    
     //MARK: - Helpers
+    
+    private func addObservers() {
+        let name = Notification.Name(rawValue: notifyResetItems)
+        notificationCenter.addObserver(self, selector: #selector(resetProgressBubble), name: name, object: nil)
+    }
     
     private func animateImageUpwards() {
         let moveUp = CGAffineTransform(translationX: 0, y: -245)
-        
         UIView.animate(withDuration: 1.0, delay: 0.8, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveEaseIn) {
             self.maleBakerImage.transform = moveUp
             self.femaleBakerImage.transform = moveUp
@@ -63,7 +95,7 @@ class MainViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        configureNavBar(withTitle: "Diner Timer", prefersLargeTitle: false)
+        configureNavBar(withTitle: "Diner Timer", prefersLargeTitle: true)
         
         let backgroundImageView = UIImageView()
         backgroundImageView.layer.zPosition = -2
@@ -118,10 +150,12 @@ extension MainViewController: ItemSelectionViewDelegate {
     }
     
     func changeProgressBarMethod(withMethod method: String) {
+        optionsLabel.text = "Choose the level of doneness"
         progressBar.secondBubble.bubbleImageView.image = UIImage(named: method)
     }
     
     func changeProgressBarItem(withItem item: String) {
+        optionsLabel.text = "Choose the cooking method"
         progressBar.firstBubble.bubbleImageView.image = UIImage(named: item)
     }
     

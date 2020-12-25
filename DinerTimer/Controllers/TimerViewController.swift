@@ -9,17 +9,11 @@ import UIKit
 import UserNotifications
 import AVFoundation
 
-let userNotificationCenter = UNUserNotificationCenter.current()
-
 class TimerViewController: UIViewController {
-    
-    //MARK: - UIComponents
-    
     
     //MARK: - Properties
     
     private var timerView = PulsingTimer()
-    private let pulsingNotifcation = NotificationCenter.default
     private var audioPlayer: AVAudioPlayer!
     
     private var isRunning: Bool = false
@@ -36,15 +30,16 @@ class TimerViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
         breakfastItem.type = nil
         breakfastItem.method = nil
         breakfastItem.doneness = nil
+        userNotificationCenter.removeAllPendingNotificationRequests()
     }
     
     deinit {
-        pulsingNotifcation.removeObserver(self)
+        notificationCenter.removeObserver(self)
     }
-    
     //MARK: - Selectors
     
     @objc private func updateTime() {
@@ -60,7 +55,7 @@ class TimerViewController: UIViewController {
             timerView.pulsingLayer.removeAnimation(forKey: "pulsing")
             timerView.timer.invalidate()
             
-            let ac = UIAlertController(title: "Food's Ready", message: "\nDon't overcook it!", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Hey!", message: "\nDon't overcook it!", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: { [weak self] _ in
                 self?.audioPlayer?.stop()
             }))
@@ -73,11 +68,10 @@ class TimerViewController: UIViewController {
             timerView.pulsingLayer.add(timerView.pulsingAnimation, forKey: "pulsing")
         }
     }
-    
     //MARK: - Notifications
     
     private func addNotificationObserver() {
-        pulsingNotifcation.addObserver(self, selector: #selector(self.willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(self.willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     private func notificationAlert() {
@@ -98,7 +92,6 @@ class TimerViewController: UIViewController {
                                             trigger: trigger)
         userNotificationCenter.add(request)
     }
-    
     //MARK: - Helpers
     
     private func exitTimer() {
@@ -116,12 +109,13 @@ class TimerViewController: UIViewController {
     }
     
     private func playAlarm() {
-        guard let url = Bundle.main.url(forResource: "marimba", withExtension: ".wav") else { return }
+        guard let url = Bundle.main.url(forResource: "marimba", withExtension: ".mp3") else { return }
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
             audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             guard let player = audioPlayer else { return }
+            player.numberOfLoops = -1
             player.play()
         } catch {
             print("DEBUG: Failed to play alarm: \(error.localizedDescription)")
@@ -130,8 +124,8 @@ class TimerViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        configureNavBar(withTitle: "\(breakfastItem.type.capitalized) | \(breakfastItem.method.capitalized) | \(breakfastItem.doneness.capitalized)",
-                        prefersLargeTitle: false)
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.title = "Diner Timer"
         navigationItem.hidesBackButton = true
         
         let backgroundImageView = UIImageView()
@@ -160,7 +154,6 @@ class TimerViewController: UIViewController {
                           trailing: view.trailingAnchor)
     }
 }
-
 //MARK: - BottomTimerViewDelegate
 
 extension TimerViewController: BottomTimerViewDelegate {
@@ -201,6 +194,8 @@ extension TimerViewController: BottomTimerViewDelegate {
     }
     
     func handleCancel() {
+        let name = Notification.Name(rawValue: notifyResetItems)
+        notificationCenter.post(name: name, object: nil)
         exitTimer()
     }
 }
