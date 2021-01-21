@@ -16,15 +16,20 @@
 
 - A simple food timer app for typical breakfast foods! 
 
-- Each item has their own methods of cooking and cook times will vary depending on your preferred choice of doneness.
+- Each item has their own methods of cooking and cook times will vary depending on your preferred choice of doneness
 
-- Project was done with 100% programmatic UI (No Storyboard)
+- Alerts user when item is done by using 
+
+- Project was completed using 100% programmatic UI (No Storyboard)
+
+- MVC design pattern
 
 #### Frameworks
 
 - UIKit
 - AVFoundation
-- UNUserNotifications
+- UserNotifications
+- NotificationCenter
 - Core Animation
 - Core Graphics
 
