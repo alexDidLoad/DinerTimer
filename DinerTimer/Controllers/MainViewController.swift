@@ -68,6 +68,7 @@ class MainViewController: UIViewController {
     //MARK: - Selectors
     
     @objc private func resetProgressBubble() {
+        optionsLabel.text = "Choose your breakfast item"
         progressBar.firstBubble.bubbleImageView.image = nil
         progressBar.secondBubble.bubbleImageView.image = nil
         progressBar.thirdBubble.bubbleImageView.image = nil
@@ -92,6 +93,7 @@ class MainViewController: UIViewController {
             }
         }
     }
+   
     
     private func configureUI() {
         view.backgroundColor = .white
@@ -145,6 +147,10 @@ class MainViewController: UIViewController {
 //MARK: - ItemSelectionViewDelegate
 
 extension MainViewController: ItemSelectionViewDelegate {
+    func didReset() {
+        resetProgressBubble()
+    }
+    
     
     func changeThirdProgressBubble() {
         animateImageUpwards()

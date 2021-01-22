@@ -138,6 +138,7 @@ extension UIView {
     func setAlpha(of views: [UIView], withAlphaOf alpha: CGFloat) {
         views.forEach({$0.alpha = alpha})
     }
+    
 }
 //MARK: - UI Configurations
 
@@ -149,7 +150,7 @@ extension UIViewController {
         appearance.configureWithOpaqueBackground()
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black,
                                          .font: UIFont(name: "SFProText-Medium", size: 32)!]
-        appearance.backgroundColor = #colorLiteral(red: 0.9335944057, green: 0.6621651053, blue: 0.7384092212, alpha: 1)
+        appearance.backgroundColor = #colorLiteral(red: 1, green: 0.7554664083, blue: 0.7532635732, alpha: 1)
         
         //Sets all of the navigation bar's attributes to our constant 'appearance'
         navigationItem.title = title
@@ -165,11 +166,12 @@ extension UIViewController {
         navigationController?.navigationBar.overrideUserInterfaceStyle = .light
     }
     
+    
     func drawCheckerBoard(imageView: UIImageView) {
         
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: view.frame.width, height: view.frame.height))
         let img = renderer.image { context in
-            context.cgContext.setFillColor(#colorLiteral(red: 0.9940704703, green: 0.9595301747, blue: 0.968749702, alpha: 1).cgColor)
+            context.cgContext.setFillColor(#colorLiteral(red: 1, green: 0.6592020481, blue: 0.6126904046, alpha: 1).withAlphaComponent(0.2).cgColor)
             for row in 0 ..< 36 {
                 for col in 0 ..< 36 {
                     if (row + col) % 2 == 0 {

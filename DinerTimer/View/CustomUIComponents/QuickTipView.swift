@@ -98,7 +98,7 @@ class QuickTipView: UIView {
         
         self.backgroundColor = #colorLiteral(red: 0.9940704703, green: 0.9595301747, blue: 0.968749702, alpha: 1)
         self.layer.borderWidth = 2
-        self.layer.borderColor = #colorLiteral(red: 0.9283291101, green: 0.6998675466, blue: 0.7616847754, alpha: 1)
+        self.layer.borderColor = #colorLiteral(red: 1, green: 0.7170290299, blue: 0.7009517906, alpha: 1)
         self.setDimensions(height: 65, width: 345)
         layer.cornerRadius = 16
         addSubview(lightningIcon)

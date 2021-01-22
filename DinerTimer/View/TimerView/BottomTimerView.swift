@@ -168,7 +168,7 @@ class BottomTimerView: UIView {
     }
     
     private func configureUI() {
-        self.backgroundColor = #colorLiteral(red: 0.9293814301, green: 0.6980805993, blue: 0.7606970668, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 1, green: 0.7170290299, blue: 0.7009517906, alpha: 1)
         
         addSubview(playButton)
         playButton.centerX(inView: self)
@@ -187,13 +187,13 @@ class BottomTimerView: UIView {
         addSubview(resetButton)
         resetButton.anchor(bottom: self.safeAreaLayoutGuide.bottomAnchor,
                            trailing: self.trailingAnchor,
-                           paddingBottom: 15,
+                           paddingBottom: 20,
                            paddingTrailing: 24)
         
         addSubview(cancelButton)
         cancelButton.anchor(leading: self.leadingAnchor,
                             bottom: self.safeAreaLayoutGuide.bottomAnchor,
                             paddingLeading: 24,
-                            paddingBottom: 15)
+                            paddingBottom: 20)
     }
 }

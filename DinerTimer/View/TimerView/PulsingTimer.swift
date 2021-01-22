@@ -15,9 +15,9 @@ class PulsingTimer: UIView {
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont(name: "SFProText-Medium", size: 56)
-        label.setDimensions(height: 212, width: 212)
+        label.setDimensions(height: 222, width: 222)
         label.backgroundColor = #colorLiteral(red: 0.9881569743, green: 0.9569149613, blue: 0.8940123916, alpha: 1)
-        label.layer.cornerRadius = 212 / 2
+        label.layer.cornerRadius = 222 / 2
         label.layer.masksToBounds = true
         label.layer.zPosition = 2
         return label
@@ -40,8 +40,8 @@ class PulsingTimer: UIView {
     
     public lazy var progressLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.strokeColor = #colorLiteral(red: 0.8157042265, green: 0.203938216, blue: 0.3097853363, alpha: 1).withAlphaComponent(0.8).cgColor
-        layer.lineWidth = 25
+        layer.strokeColor = #colorLiteral(red: 0.9226687653, green: 0.2325172486, blue: 0.354139469, alpha: 1).cgColor
+        layer.lineWidth = 15
         layer.lineCap = .round
         layer.fillColor = UIColor.clear.cgColor
         layer.zPosition = 1
@@ -50,8 +50,8 @@ class PulsingTimer: UIView {
     
     private lazy var trackLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.strokeColor = #colorLiteral(red: 0.9450542331, green: 0.7765093446, blue: 0.4783833623, alpha: 1).cgColor
-        layer.lineWidth = 25
+        layer.strokeColor = #colorLiteral(red: 0.9466593862, green: 0.7775826454, blue: 0.4798718095, alpha: 1).cgColor
+        layer.lineWidth = 15
         layer.lineCap = .round
         layer.fillColor = UIColor.clear.cgColor
         layer.zPosition = 0
@@ -63,7 +63,7 @@ class PulsingTimer: UIView {
         layer.strokeColor = UIColor.clear.cgColor
         layer.lineWidth = 15
         layer.lineCap = .round
-        layer.fillColor = #colorLiteral(red: 0.8157042265, green: 0.203938216, blue: 0.3097853363, alpha: 1).withAlphaComponent(0.5).cgColor
+        layer.fillColor = #colorLiteral(red: 0.9226687653, green: 0.2325172486, blue: 0.354139469, alpha: 1).withAlphaComponent(0.8).cgColor
         layer.zPosition = -1
         return layer
     }()

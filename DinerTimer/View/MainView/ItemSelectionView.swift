@@ -12,6 +12,7 @@ protocol ItemSelectionViewDelegate: class {
     func changeProgressBarItem(withItem item: String)
     func changeProgressBarMethod(withMethod method: String)
     func changeThirdProgressBubble()
+    func didReset()
 }
 
 class ItemSelectionView: UIView {
@@ -127,6 +128,7 @@ class ItemSelectionView: UIView {
         super.init(frame: .zero)
         
         configureUI()
+        configureSwipeGesture()
         addObservers()
     }
     
@@ -256,6 +258,11 @@ class ItemSelectionView: UIView {
         delegate?.didSelect()
     }
     
+    @objc private func handleSwipe(sender: UISwipeGestureRecognizer) {
+        delegate?.didReset()
+        resetButtons()
+    }
+    
     //MARK: - Helpers
     
     private func addObservers() {
@@ -269,8 +276,10 @@ class ItemSelectionView: UIView {
         setAlpha(of: [topStack, bottomStack, topOptionButton, bottomOptionButton, firstDescription, secondDescription, thirdDescription, fourthDescription], withAlphaOf: 1)
         
         NSLayoutDeactivate([topOptionCenterXAnchor, bottomOptionCenterXAnchor, firstDescriptionCenterXAnchor, secondDescriptionCenterXAnchor, thirdDescriptionCenterXAnchor, fourthDescriptionCenterXAnchor])
-        
         NSLayoutActivate([topOptionLeadingAnchor, bottomOptionLeadingAnchor, firstDescriptionLeadingAnchor, secondDescriptionLeadingAnchor, thirdDescriptionLeadingAnchor, fourthDescriptionLeadingAnchor])
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: .zero, options: .curveEaseInOut) {
+            self.layoutIfNeeded()
+        }
     }
     
     private func updateDoneness() {
@@ -471,6 +480,12 @@ class ItemSelectionView: UIView {
         UIView.animate(withDuration: 0.8, delay: 0.6, usingSpringWithDamping: 1.0, initialSpringVelocity: .zero, options: .curveLinear) {
             self.layoutIfNeeded()
         }
+    }
+    
+    private func configureSwipeGesture() {
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipe.direction = .right
+        addGestureRecognizer(swipe)
     }
     
     private func configureUI() {
