@@ -63,7 +63,7 @@ class PulsingTimer: UIView {
         layer.strokeColor = UIColor.clear.cgColor
         layer.lineWidth = 15
         layer.lineCap = .round
-        layer.fillColor = #colorLiteral(red: 0.9226687653, green: 0.2325172486, blue: 0.354139469, alpha: 1).withAlphaComponent(0.8).cgColor
+        layer.fillColor = #colorLiteral(red: 0.9226687653, green: 0.2325172486, blue: 0.354139469, alpha: 1).withAlphaComponent(0.5).cgColor
         layer.zPosition = -1
         return layer
     }()
@@ -81,8 +81,8 @@ class PulsingTimer: UIView {
     public lazy var pulsingAnimation: CABasicAnimation = {
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.fromValue = 1
-        animation.toValue = 1.25
-        animation.duration = 1.0
+        animation.toValue = 1.2
+        animation.duration = 0.8
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.autoreverses = true
         animation.repeatCount = .infinity

@@ -150,7 +150,7 @@ extension UIViewController {
         appearance.configureWithOpaqueBackground()
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black,
                                          .font: UIFont(name: "SFProText-Medium", size: 32)!]
-        appearance.backgroundColor = #colorLiteral(red: 1, green: 0.7554664083, blue: 0.7532635732, alpha: 1)
+        appearance.backgroundColor = #colorLiteral(red: 1, green: 0.7554664083, blue: 0.7532635732, alpha: 1).withAlphaComponent(0.7)
         
         //Sets all of the navigation bar's attributes to our constant 'appearance'
         navigationItem.title = title

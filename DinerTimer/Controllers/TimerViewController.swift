@@ -11,6 +11,32 @@ import AVFoundation
 
 class TimerViewController: UIViewController {
     
+    //MARK: - UIComponents
+    private let temperatureLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont(name: "SFProText-Heavy", size: 12)
+        label.numberOfLines = 0
+        label.textColor = UIColor.black.withAlphaComponent(0.8)
+        return label
+    }()
+    
+    private let tempView: UIView = {
+        let view = UIView()
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "thermometer")
+        view.addSubview(iv)
+        iv.setDimensions(height: 45, width: 30)
+        iv.anchor(top: view.topAnchor, leading: view.leadingAnchor, paddingTop: 2, paddingLeading: 1)
+        iv.tintColor = UIColor.systemRed.withAlphaComponent(0.8)
+        view.backgroundColor = #colorLiteral(red: 0.9881569743, green: 0.9569149613, blue: 0.8940123916, alpha: 1)
+        view.layer.borderWidth = 2
+        view.layer.borderColor = #colorLiteral(red: 0.9466593862, green: 0.7775826454, blue: 0.4798718095, alpha: 1).cgColor
+        view.setDimensions(height: 50, width: 95)
+        view.layer.cornerRadius = 12
+        return view
+    }()
+    
     //MARK: - Properties
     
     private var timerView = PulsingTimer()
@@ -25,6 +51,7 @@ class TimerViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        updateTemperatureLabel()
         addNotificationObserver()
     }
     
@@ -94,6 +121,44 @@ class TimerViewController: UIViewController {
     }
     //MARK: - Helpers
     
+    private func updateTemperatureLabel() {
+        switch breakfastItem.type {
+        case egg:
+            switch breakfastItem.method {
+            case pan:
+                switch breakfastItem.doneness {
+                case sunnyside:
+                    temperatureLabel.text = "Medium Heat"
+                default:
+                    temperatureLabel.text = "Medium High"
+                }
+            default:
+                temperatureLabel.text = "High Heat"
+            }
+        case bacon:
+            switch breakfastItem.method {
+            case pan:
+                temperatureLabel.text = "Medium High"
+            default:
+                temperatureLabel.text = "400℉"
+            }
+        case pancake:
+            switch breakfastItem.method {
+            case pan:
+                temperatureLabel.text = "Medium Heat"
+            default:
+                temperatureLabel.text = "425℉"
+            }
+        default:
+            switch breakfastItem.method {
+            case pan:
+                temperatureLabel.text = "Medium High"
+            default:
+                temperatureLabel.text = "400℉"
+            }
+        }
+    }
+    
     private func exitTimer() {
         if timerView.timerLabel.text == "00:00" || isRunning == false {
             navigationController?.popToRootViewController(animated: true)
@@ -138,9 +203,20 @@ class TimerViewController: UIViewController {
         let quickTipView = QuickTipView()
         view.addSubview(quickTipView)
         quickTipView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                            paddingTop: 33)
+                            paddingTop: 12)
         quickTipView.centerX(inView: view)
         
+        view.addSubview(tempView)
+        tempView.anchor(top: quickTipView.bottomAnchor,
+                        trailing: quickTipView.trailingAnchor,
+                        paddingTop: 6,
+                        paddingTrailing: 6)
+        
+        tempView.addSubview(temperatureLabel)
+        temperatureLabel.centerY(inView: tempView)
+        temperatureLabel.anchor(leading: tempView.leadingAnchor,
+                                trailing: tempView.trailingAnchor,
+                                paddingLeading: 26)
         
         view.addSubview(timerView)
         timerView.backgroundColor = .green

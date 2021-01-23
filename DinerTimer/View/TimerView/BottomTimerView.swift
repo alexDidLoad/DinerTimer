@@ -19,14 +19,6 @@ class BottomTimerView: UIView {
     
     //MARK: - UIComponents
     
-    private let temperatureLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont(name: "SFProText-Heavy", size: 16)
-        label.textColor = .black
-        return label
-    }()
-    
     private let playButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -80,18 +72,16 @@ class BottomTimerView: UIView {
         button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         return button
     }()
+
     //MARK: - Properties
     
     weak var delegate: BottomTimerViewDelegate?
-    
-    private var soundEffect: AVAudioPlayer!
     
     //MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
-        updateTemperatureLabel()
+    
         configureUI()
     }
     
@@ -129,60 +119,17 @@ class BottomTimerView: UIView {
     }
     //MARK: - Helpers
     
-    private func updateTemperatureLabel() {
-        switch breakfastItem.type {
-        case egg:
-            switch breakfastItem.method {
-            case pan:
-                switch breakfastItem.doneness {
-                case sunnyside:
-                    temperatureLabel.text = "Medium Heat"
-                default:
-                    temperatureLabel.text = "Medium High Heat"
-                }
-            default:
-                temperatureLabel.text = "High Heat"
-            }
-        case bacon:
-            switch breakfastItem.method {
-            case pan:
-                temperatureLabel.text = "Medium High Heat"
-            default:
-                temperatureLabel.text = "400℉"
-            }
-        case pancake:
-            switch breakfastItem.method {
-            case pan:
-                temperatureLabel.text = "Medium Heat"
-            default:
-                temperatureLabel.text = "425℉"
-            }
-        default:
-            switch breakfastItem.method {
-            case pan:
-                temperatureLabel.text = "Medium High Heat"
-            default:
-                temperatureLabel.text = "400℉"
-            }
-        }
-    }
-    
     private func configureUI() {
-        self.backgroundColor = #colorLiteral(red: 1, green: 0.7170290299, blue: 0.7009517906, alpha: 1)
+        backgroundColor = #colorLiteral(red: 1, green: 0.7170290299, blue: 0.7009517906, alpha: 1)
         
         addSubview(playButton)
         playButton.centerX(inView: self)
-        playButton.centerY(inView: self)
+        playButton.centerY(inView: self, constant: -20)
         
         addSubview(pauseButton)
         pauseButton.isHidden = true
         pauseButton.centerX(inView: self)
-        pauseButton.centerY(inView: self)
-        
-        addSubview(temperatureLabel)
-        temperatureLabel.anchor(top: self.topAnchor,
-                         bottom: playButton.topAnchor)
-        temperatureLabel.centerX(inView: self)
+        pauseButton.centerY(inView: self, constant: -20)
         
         addSubview(resetButton)
         resetButton.anchor(bottom: self.safeAreaLayoutGuide.bottomAnchor,

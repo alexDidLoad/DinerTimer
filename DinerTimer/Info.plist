@@ -22,6 +22,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SF-Pro-Text-Semibold</string>
 		<string>SF-Pro-Text-Heavy.otf</string>
 		<string>SF-Pro-Text-Regular.otf</string>
 		<string>SF-Pro-Text-Medium.otf</string>

@@ -29,12 +29,13 @@ class QuickTipView: UIView {
         return label
     }()
     
-    private var bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.text = "BODY TEXT HERE"
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.textColor = #colorLiteral(red: 0.1545568705, green: 0.117007874, blue: 0.04884755611, alpha: 1)
-        label.font = UIFont(name: "SFProText-Regular", size: 12)
+        label.font = UIFont(name: "SFProText-Medium", size: 12)
         label.setHeight(height: 30)
         return label
     }()
@@ -101,6 +102,9 @@ class QuickTipView: UIView {
         self.layer.borderColor = #colorLiteral(red: 1, green: 0.7170290299, blue: 0.7009517906, alpha: 1)
         self.setDimensions(height: 65, width: 345)
         layer.cornerRadius = 16
+        
+        
+        
         addSubview(lightningIcon)
         lightningIcon.anchor(top: self.topAnchor,
                              leading: self.leadingAnchor,
@@ -110,8 +114,11 @@ class QuickTipView: UIView {
         titleLabel.anchor(top: self.topAnchor,
                           leading: lightningIcon.trailingAnchor,
                           paddingLeading: 5)
+        
         addSubview(bodyLabel)
-        bodyLabel.anchor(top: titleLabel.bottomAnchor)
+        bodyLabel.anchor(top: titleLabel.bottomAnchor,
+                         leading: leadingAnchor,
+                         trailing: trailingAnchor)
         bodyLabel.centerX(inView: self)
     }
     
