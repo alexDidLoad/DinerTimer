@@ -18,7 +18,7 @@
 
 - Each item has their own methods of cooking and cook times will vary depending on your preferred choice of doneness
 
-- Alerts user when item is done by using 
+- Alerts user when item is done by using User Notifications
 
 - Project was completed using 100% programmatic UI (No Storyboard)
 
