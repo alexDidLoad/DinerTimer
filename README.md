@@ -55,4 +55,4 @@
 - Twitter - [@alexDidLoad](https://twitter.com/alexDidLoad)
 - Website - [LinkedIn: Alexander Ha](https://linkedin.com/in/alexhha)
 
-[Back To The Top](#well-done)
+[Back To The Top](#DinerTimer)
