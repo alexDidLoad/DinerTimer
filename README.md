@@ -47,11 +47,7 @@
 ## How To Use
 
 - Clone the project and run it on Xcode 12 or above
-
-#### Installation
-
-- No installation required 
-
+- Also available on the Apple Appstore: https://apps.apple.com/us/app/dinertimer/id1550181756
 ---
 
 ## Author Info
