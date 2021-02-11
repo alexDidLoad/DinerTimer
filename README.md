@@ -2,6 +2,10 @@
 
 ### Screen Shots
 
+<img src="https://user-images.githubusercontent.com/67172004/107609786-cec2d780-6bf4-11eb-8081-25ca517473c9.gif" width="240" height="510">
+
+
+
 ---
 
 ### Table of Contents
